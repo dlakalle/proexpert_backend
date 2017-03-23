@@ -1,0 +1,54 @@
+<head lang="en" ng-app="appModule">
+  <meta charset="utf-8">
+  <title>Iniciar Sesión</title>
+
+  <link rel="stylesheet" href="login.css" />
+
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
+
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+  <script src="app/app.module.js"></script>
+
+</head>
+<body>
+  <div class="login-page">
+    <div class="form">
+      <form class="register-form">
+        <input type="text" placeholder="name"/>
+        <input type="password" placeholder="password"/>
+        <input type="text" placeholder="email address"/>
+        <button>create</button>
+        <p class="message">Already registered? <a href="#">Sign In</a></p>
+      </form>
+      <form class="login-form">
+        <input type="text" placeholder="email"/>
+        <input type="password" placeholder="contraseña"/>
+        <button>Iniciar Sesión</button>
+        <p class="message"></p>
+        <br>
+        <md-divider></md-divider>
+        <p class="message">O ingresa con: </p>
+        <br>
+      <div class="social-btn-wrap">
+        <a class="btn-linkedin">
+          <md-icon class="icon-linkedin" md-svg-src="url('/static/svg/linkedin.svg')" aria-label="Ingresar con LinkedIn"></md-icon>
+          LinkedIn
+        </a>
+      </div>
+      </form>
+
+
+    </div>
+  </div>
+
+</body>

@@ -1,0 +1,39 @@
+.png-icon{
+    margin: 5px auto auto;
+    padding: 0;
+    display: inline-block;
+    background-repeat: no-repeat no-repeat;
+    pointer-events: none;
+}
+
+.proexp-toolbar {
+  /*border-bottom: 1px solid #222;*/
+  box-shadow: 0 3px 2px -2px gray;
+}
+
+.proexp-toolbar a {
+  cursor: pointer;
+}
+
+.proexp-toolbar a md-icon:focus{
+  outline: 0;
+}
+
+.proexp-toolbar md-icon {
+  color: #222;
+  font-weight: bold !important;
+}
+
+.proexp-sidenav {
+  background-color: #222;
+  color: #fff;
+}
+
+.proexp-sidenav md-content {
+  background-color: #222;
+  color: #fff;
+}
+
+.proexp-sidenav .md-button{
+  /*width: 100%;*/
+}
