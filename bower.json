@@ -5,12 +5,13 @@
   "license": "MIT",
   "dependencies": {
     "angular": "1.5.x",
-    "angular-animate": "1.5.x",
+    "angular-animate": "^1.6.3",
     "angular-mocks": "1.5.x",
     "angular-resource": "1.5.x",
     "angular-route": "1.5.x",
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
-    "angular-material": "^1.1.1"
+    "angular-material": "^1.1.1",
+    "angular-ui-router": "^0.4.2"
   }
 }

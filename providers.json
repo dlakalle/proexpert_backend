@@ -1,0 +1,40 @@
+{
+  "local": {
+    "provider": "local",
+    "module": "passport-local",
+    "usernameField": "username",
+    "passwordField": "password",
+    "authPath": "/auth/local",
+    "successRedirect": "/auth/account",
+    "failureRedirect": "/local",
+    "failureFlash": true
+  },
+  "google-login": {
+    "provider": "google",
+    "module": "passport-google-oauth",
+    "strategy": "OAuth2Strategy",
+    "clientID": "185895118365-bf3ntj9rh091v4cskee2imp3k94nq4k6.apps.googleusercontent.com",
+    "clientSecret": "W4NnSH88t1LkRPiSWhp50Zn4",
+    "callbackURL": "/auth/google/callback",
+    "authPath": "/auth/google",
+    "callbackPath": "/auth/google/callback",
+    "successRedirect": "/auth/account",
+    "failureRedirect": "/",
+    "scope": ["email", "profile"],
+    "failureFlash": true
+  },
+  "linkedin-login": {
+    "provider": "linkedin",
+    "module": "passport-linkedin-oauth2",
+    "strategy": "OAuth2Strategy",
+    "clientID": "7852612et2wmba",
+    "clientSecret": "wBNYIPzCFEVYoBq7",
+    "callbackURL": "/auth/linkedin/callback",
+    "authPath": "/auth/linkedin",
+    "callbackPath": "/auth/linkedin/callback",
+    "successRedirect": "/auth/account",
+    "failureRedirect": "/",
+    "scope": ["r_emailaddress", "r_basicprofile"],
+    "failureFlash": true
+  }
+}

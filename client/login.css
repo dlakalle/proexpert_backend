@@ -12,6 +12,7 @@
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
+  padding-top: 20px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -89,27 +90,22 @@
   color: #EF3B3A;
 }
 body {
-  background: #76b852; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-  background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
-  background: linear-gradient(to left, #76b852, #8DC26F);
+  background: #CACACA; /* fallback for old browsers */
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
 
 .social-btn-wrap {
+  display: inline;
   box-sizing: border-box;
-  float: left;
   margin-left: 0;
 
   margin-bottom: 10px;
   width: 30%;
 }
 
-.btn-linkedin {
-  background: #0077B5;
+.btn {
   color: #fff;
   
   min-width: 110px;
@@ -135,10 +131,10 @@ body {
   text-align: left;
 }
 
-.btn-linkedin .icon-linkedin {
+.btn i{
   background: rgba(0,0,0,0.075);
   display: inline-block;
-  padding: 0 4px 0 8px;
+  padding: 0 8px 0 8px;
   margin-right: 8px;
   border-radius: 5px 0 0 5px;
   top: 0;
@@ -146,3 +142,24 @@ body {
   height: 39px !important;
   position: relative;
 }
+
+hr.login_divider{
+  border: 0;
+  border-top: 1px solid #8c8b8b;
+  border-top-color: rgba(0,0,0,0.12);
+}
+
+.btn-linkedin {
+  background: #0077B5;
+  float: left;
+}
+.btn-google {
+  background: #DB4437;
+  float: right;
+}
+
+.login_logo {
+  padding-bottom: 32px;
+}
+
+/*#DB4437*/
