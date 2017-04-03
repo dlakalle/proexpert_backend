@@ -1,9 +1,30 @@
 block content
-  h2 Third Party Profile(s)
+  h2 Bienvenido a ProExpert
   p.small
     if user.profiles.length !== 0
       each val in user.profiles
-        h4= val.provider + ':'
-        p.small= JSON.stringify(val)
+        h3= Bienvenido
+        if val.provider == "linkedin"
+          h4= val.profile.displayName
+          img(src= val.profile._json.pictureUrl, width="48", height="48")
+          ul
+            li= val.profile._json.headline
+            li= val.profile._json.emailAddress
+            li= val.profile._json.location.name
+            li= val.profile._json.numConnections
+            li= val.profile._json.industry
+            li
+              ul
+                each pos in val.profile._json.positions.values
+                  li=pos.title
+                  li=pos.company.name
+                  li=pos.startDate.month
+                  li=pos.startDate.year
+        else
+          h4= val.profile.displayName
+          img(src= val.profile._json.picture, width="48", height="48")
+          ul
+            li= val.profile._json.email
+            li= val.profile._json.hd
     else
       | NONE
