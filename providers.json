@@ -2,12 +2,16 @@
   "local": {
     "provider": "local",
     "module": "passport-local",
-    "usernameField": "username",
+    "usernameField": "email",
     "passwordField": "password",
     "authPath": "/auth/local",
     "successRedirect": "/auth/account",
-    "failureRedirect": "/local",
-    "failureFlash": true
+    "failureRedirect": "/login",
+    "failureFlash": true,
+    "setAccessToken": true,
+    "session" : true,
+    "cookie": true,
+    "json": true
   },
   "google-login": {
     "provider": "google",
@@ -19,9 +23,11 @@
     "authPath": "/auth/google",
     "callbackPath": "/auth/google/callback",
     "successRedirect": "/auth/account",
-    "failureRedirect": "/",
+    "failureRedirect": "/login",
     "scope": ["email", "profile"],
-    "failureFlash": true
+    "failureFlash": true,
+    "cookie": true,
+    "json": true
   },
   "linkedin-login": {
     "provider": "linkedin",
@@ -33,8 +39,10 @@
     "authPath": "/auth/linkedin",
     "callbackPath": "/auth/linkedin/callback",
     "successRedirect": "/auth/account",
-    "failureRedirect": "/",
+    "failureRedirect": "/login",
     "scope": ["r_emailaddress", "r_basicprofile"],
-    "failureFlash": true
+    "failureFlash": true,
+    "cookie": true,
+    "json": true
   }
 }

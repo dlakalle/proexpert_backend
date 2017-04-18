@@ -1,7 +1,8 @@
 (function(){
   var app = angular.module('appModule', [
     'ngMaterial',
-    'ui.router'
+    'ui.router',
+    'angular-storage'
   ])
   .config(function($mdThemingProvider) {
 

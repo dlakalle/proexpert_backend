@@ -1,5 +1,5 @@
 block content
-  h2 Bienvenido a ProExpert
+  h2 Bienvenido a Test Login
   p.small
     if user.profiles.length !== 0
       each val in user.profiles
@@ -28,3 +28,4 @@ block content
             li= val.profile._json.hd
     else
       | NONE
+  a(href="/auth/logout") Log Out

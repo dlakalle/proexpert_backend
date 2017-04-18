@@ -1,41 +1,35 @@
-<head lang="en">
-  <meta charset="utf-8">
-  <title>Iniciar Sesión</title>
+<!doctype html>
+<html lang="en" ng-app="appModule">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <title>DarwinEd Estudiantes</title> -->
+    <title>Estudio de Sueldos</title>
 
-  <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="static/css/font-material-design.css">
+    
+    <link rel="stylesheet" href="app/informe/layout.component.css">
 
-  <link href="static/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../static/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-</head>
-<body>
-  <div class="login-page">
-    <div class="form">
-      <img src="static/png/logo2.png" class="login_logo"></img>
-      <form class="login-form">
-        <input type="text" placeholder="email"/>
-        <input type="password" placeholder="contraseña"/>
-        <button>Iniciar Sesión</button>
-        <p class="message"></p>
-        <br>
-        <hr class="login_divider"></hr>
-        <p class="message">O ingresa con: </p>
-        <br>
-      <div class="social-btn-wrap">
-        <a class="btn btn-linkedin" href="/auth/linkedin">
-          <i class="fa fa-linkedin"></i>
-          LinkedIn
-        </a>
-      </div>
-      <div class="social-btn-wrap">
-        <a class="btn btn-google" href="/auth/google">
-          <i class="fa fa-google-plus"></i>
-          Google+
-        </a>
-      </div>
-      </form>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
 
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/a0-angular-storage/dist/angular-storage.min.js"></script>
 
-    </div>
-  </div>
+    <script src="app/app.module.js"></script>
+    <script src="app/app.config.controllers.js"></script>
+    <script src="app/app.config.js"></script>
 
-</body>
+    <script src="app/informe/layout.component.js"></script>
+
+  </head>
+  <body ui-view></body>
+</html>

@@ -69,6 +69,10 @@ app.middleware('session', session({
   secret: 'kitty',
   saveUninitialized: true,
   resave: true,
+  // cookie: {
+  //   httpOnly: true,
+  //   secure: true
+  // }
 }));
 passportConfigurator.init();
 
@@ -87,20 +91,21 @@ for (var s in config) {
 }
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
-app.get('/', function(req, res, next) {
+app.get('/login', function(req, res, next) {
   res.render('pages/index', {user:
     req.user,
     url: req.url,
   });
 });
 
-app.get('/auth/account', ensureLoggedIn('/'), function(req, res, next) {
-  // console.log(req.user, req.url, res);
-  res.render('pages/loginProfiles', {
-    user: req.user,
-    url: req.url,
-  });
-});
+// app.get('/auth/account', ensureLoggedIn('/login'), function(req, res, next) {
+//   // console.log(req.user, req.url, res);
+//   // res.render('pages/loginProfiles', {
+//   //   user: req.user,
+//   //   url: req.url,
+//   // });
+//   res.redirect('/#!/' + req.accessToken.id + '/' +  req.accessToken.userId);
+// });
 
 app.get('/local', function(req, res, next) {
   res.render('pages/local', {
@@ -153,7 +158,9 @@ app.get('/login', function(req, res, next) {
 
 app.get('/auth/logout', function(req, res, next) {
   req.logout();
-  res.redirect('/');
+  res.clearCookie('access_token');
+  res.clearCookie('userId');
+  res.redirect('/login');
 });
 
 app.start = function() {

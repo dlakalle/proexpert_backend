@@ -4,23 +4,20 @@
       function config($urlRouterProvider, $locationProvider, $stateProvider) {
         $locationProvider.hashPrefix('!');
 
-        $urlRouterProvider.otherwise('/login/');
+        $urlRouterProvider.otherwise('/no_auth/no_user');
+
+        $stateProvider.state('tokenizer', {
+          url: '/:token/:userId',
+          template: 'Ingresando...',
+          controllerAs: '$ctrl',
+          controller: 'TokenController'
+        });
+
 
         $stateProvider.state('app', {
-          url: '',
-          template: '<app></app>'
-        });
-        
-        $stateProvider.state('app.informe', {
-          url: '/informe/',
+          url: '/informe',
           template: '<layout></layout>'
         });
-
-        $stateProvider.state('login', {
-          url: '/login/',
-          template: '<login></login>'
-        });
-
 
       }
     ]);
