@@ -1,0 +1,84 @@
+<md-toolbar>
+    <div class="md-toolbar-tools proexp-toolbar" >
+        <a ng-if="!$ctrl.bigScreen">
+            <i class="fa fa-bars" ng-click="$ctrl.openLeftMenu()"></i>
+        </a>
+        <md-button aria-label="Logo">
+           <img
+            class="png-icon"
+            src="../../static/png/logo2.png"
+            style="width: 190px; height: 40px;">
+        </md-button>
+        <span flex></span>
+        <div ng-if="$ctrl.bigScreen">
+            <md-button>Home</md-button>
+            <md-button>Informe de sueldos</md-button>
+            <md-button>Estudio de sueldos 2016</md-button>
+            <md-button>Contacto</md-button>
+            <md-button>Log in</md-button>
+        </div>
+        <div ng-if="!$ctrl.bigScreen">
+            <a>
+                <i class="fa fa-ellipsis-v" ng-click="$ctrl.showBottomSheet()"></i>
+            </a>
+        </div>
+    </div>
+</md-toolbar>
+
+<section layout="row" flex>
+
+    <md-sidenav
+        md-component-id="left-sidenav"
+        md-is-locked-open="$ctrl.bigScreen"
+        class="md-sidenav-left proexp-sidenav">
+
+        <md-content layout-padding="" layout="column">
+            <md-button ng-click="$ctrl.sideNavClick('informe')">
+                <i class="fa fa-line-chart"></i>
+                &nbsp;
+                Informe
+            </md-button>
+
+            <md-button ng-click="$ctrl.sideNavClick('comparacion')">
+                &nbsp;
+                &nbsp;
+                <i class="fa fa-users"></i>
+                &nbsp;
+                Comparación
+            </md-button>
+
+            <md-button ng-click="$ctrl.sideNavClick('interpretacion')">
+                &nbsp;
+                &nbsp;
+                <i class="fa fa-thumbs-up"></i>
+                &nbsp;
+                Interpretación
+            </md-button>
+
+            <md-button ng-click="$ctrl.sideNavClick('optimizacion')">
+                &nbsp;
+                &nbsp;
+                <i class="fa fa-diamond"></i>
+                &nbsp;
+                Optimización
+            </md-button>
+
+            <md-button ng-click="$ctrl.sideNavClick('descarga')">
+                <i class="fa fa-download"></i>
+                &nbsp;
+                Descarga
+            </md-button>
+
+            <md-button ng-click="$ctrl.sideNavClick('usuario')">
+                <i class="fa fa-user"></i>
+                &nbsp;
+                Mi Cuenta
+            </md-button>
+        </md-content>
+    </md-sidenav>
+
+    <md-content flex layout-padding style="background:#edecec;">
+        <div ui-view></div>
+    </md-content>
+
+</section>

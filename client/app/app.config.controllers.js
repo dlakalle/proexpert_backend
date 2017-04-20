@@ -24,7 +24,7 @@
 
         function login(){
           store.set('token', self.token);
-          $state.go('app');
+          $state.go('app.informe');
         }
       }
     ]);

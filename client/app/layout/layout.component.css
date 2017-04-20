@@ -27,6 +27,7 @@
 .proexp-sidenav {
   background-color: #222;
   color: #fff;
+  max-width: 230px !important;
 }
 
 .proexp-sidenav md-content {
@@ -36,4 +37,5 @@
 
 .proexp-sidenav .md-button{
   /*width: 100%;*/
+  text-align: left;
 }

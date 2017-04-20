@@ -13,10 +13,24 @@
           controller: 'TokenController'
         });
 
-
         $stateProvider.state('app', {
-          url: '/informe',
+          url: '/app',
           template: '<layout></layout>'
+        });
+
+        $stateProvider.state('app.informe', {
+          url: '/informe/',
+          template: '<informe></informe>'
+        });
+
+        $stateProvider.state('app.descarga', {
+          url: '/descarga/',
+          template: '<div>Reporte Descargable</div>'
+        });
+
+        $stateProvider.state('app.usuario', {
+          url: '/usuario/',
+          template: '<div>Mi Cuenta</div>'
         });
 
       }
