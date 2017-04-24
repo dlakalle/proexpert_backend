@@ -2,46 +2,21 @@
   <h1>Informe de Sueldo</h1>
   <div flex layout="row" layout-xs="column">
     <div flex>
-      <h2>Ingeniero Civil en Computación</h2>
+      <h2>Ingeniero Civil en Computación y Física Cuántica Nuclear del Átomo</h2>
       <p>Sueldo total: $1.239.000</p>
       <p>Cargo: Jefe de proyecto</p>
       <p>Institución: Universidad de Chile</p>
       <p>Años de Experiencia: 6 años</p>
       <p>Industria: Salud</p>
     </div>
-    <div flex>
-
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Card with image</span>
-            <span class="md-subhead">Extra Large</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content layout="row" layout-align="space-between">
-          <div class="md-media-xl card-media"></div>
-        </md-card-content>
-      </md-card>
-
+    
+    <div ng-repeat="tarjeta in $ctrl.tarjetas" flex>
+      <tarjeta config="tarjeta"></tarjeta>
     </div>
-    <div flex>
 
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Card with image</span>
-            <span class="md-subhead">Extra Large</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content layout="row" layout-align="space-between">
-          <div class="md-media-xl card-media"></div>
-        </md-card-content>
-      </md-card>
-
-    </div>
   </div>
 
-  <h1 style="float:right;">Comparación</h1>
+  <h1>Comparación</h1>
 
   <div flex layout="row" layout-xs="column">
     <div flex>
@@ -92,6 +67,7 @@
 
     </div>
   </div>
+  <h1>Interpretación</h1>
   <div flex layout="row" layout-xs="column">
     <div flex>
 

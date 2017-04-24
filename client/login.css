@@ -162,4 +162,12 @@ hr.login_divider{
   padding-bottom: 32px;
 }
 
+.login_error {
+  color: #f1270b;
+  margin: 0px 0px 15px 0px;
+  text-shadow: none;
+  text-align: center !important;
+  font-weight: bold;
+}
+
 /*#DB4437*/

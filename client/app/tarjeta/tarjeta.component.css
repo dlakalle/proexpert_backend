@@ -1,0 +1,38 @@
+.tarjeta_container {
+  display: flex;
+}
+
+.tarjeta_main {
+}
+
+.tarjeta_icon {
+}
+
+.tarjeta_divider {
+  height: 2px;
+  width: 240px;
+  background-color: #fff;
+}
+
+.tarjeta_icon {
+  height: 258px;
+  width: 48px;
+  background-color: #B0BEC5;
+  margin-left: 2px;
+}
+
+.tarjeta_icon_circle {
+  background-color: #EF5350;
+  border-radius: 25px;
+  width: 76%;
+    height: 36px;
+  position: relative;
+    top: 57px;
+  margin-left: 5.8px;
+}
+
+.tarjeta_icon_circle md-icon {
+  position: absolute;
+  left: 6px;
+    top: 5px;
+}

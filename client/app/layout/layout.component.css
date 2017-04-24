@@ -28,6 +28,7 @@
   background-color: #222;
   color: #fff;
   max-width: 230px !important;
+  /*position: fixed !important;*/
 }
 
 .proexp-sidenav md-content {

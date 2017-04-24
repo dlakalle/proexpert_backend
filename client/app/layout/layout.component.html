@@ -15,7 +15,7 @@
             <md-button>Informe de sueldos</md-button>
             <md-button>Estudio de sueldos 2016</md-button>
             <md-button>Contacto</md-button>
-            <md-button>Log in</md-button>
+            <md-button ng-click="$ctrl.buttonCallback()">{{ $ctrl.buttonText }}</md-button>
         </div>
         <div ng-if="!$ctrl.bigScreen">
             <a>

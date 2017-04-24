@@ -13,6 +13,7 @@
     <div class="form">
       <img src="static/png/logo2.png" class="login_logo"></img>
       <form class="login-form" action="/auth/local" method="POST">
+        <div id="mensaje" class="login_error" style=""></div>
         <input type="text" placeholder="email" name="email"/>
         <input type="password" placeholder="contraseña" name="password"/>
         <button type="submit">Iniciar Sesión</button>

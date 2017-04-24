@@ -1,0 +1,20 @@
+<div class="tarjeta_container">
+    <div class="tarjeta_main">
+        <div class="tarjeta_title">
+            <indicador value="$ctrl.config.value" icon="$ctrl.config.icon"></indicador>
+        </div>
+        <div class="tarjeta_divider">&nbsp;</div>
+        <div class="tarjeta_desc">
+            <descripcion text="$ctrl.config.description"></descripcion>
+        </div>
+        <div class="tarjeta_percent">
+            <progress-bar value="$ctrl.config.percent"></progress-bar>
+        </div>
+    </div>
+    <div class="tarjeta_icon">
+        &nbsp;
+        <div class="tarjeta_icon_circle" style="background-color: {{ $ctrl.passColor }};">
+            <i class="fa fa-ellipsis-v"></i>
+        </div>
+    </div>
+</div>

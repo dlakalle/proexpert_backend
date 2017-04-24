@@ -19,11 +19,15 @@
 
         function logout(){
           store.remove('token');
+          store.remove('userId');
+          $rootScope.isAuth = false;
           $window.location.href = '/login';
         }
 
         function login(){
           store.set('token', self.token);
+          store.set('userId', self.userId);
+          $rootScope.isAuth = true;
           $state.go('app.informe');
         }
       }
