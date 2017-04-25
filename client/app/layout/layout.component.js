@@ -23,8 +23,9 @@
         }
         else {
           self.buttonText = 'Log In';
+          // $rootScope.$broadcast('unauthenticated');
         }
-        
+
         self.buttonCallback = function(){
           $rootScope.$broadcast('unauthenticated');
         };

@@ -1,0 +1,25 @@
+.pb_container {
+	/*width: 280px;*/
+  /*width: 80%;*/
+	background-color: #B0BEC5;
+	color: #fff;
+	padding: 16px;
+}
+
+.pb_value {
+	font-size: xx-large;
+	margin-bottom: 5px;
+}
+
+.pb_bar {
+}
+
+.pb_bar_track {
+	background-color: #fff;
+	height: 12px;
+}
+
+.pb_bar_fill {
+	height: 12px;
+}
+

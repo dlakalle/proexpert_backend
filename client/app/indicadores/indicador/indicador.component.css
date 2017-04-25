@@ -1,0 +1,20 @@
+.indicador_container {
+	color: #fff;
+	height: 48px;
+	text-align: center;
+	line-height: 48px;
+	display: flex;
+	/*width: 312px;*/
+	/*width: 90%;*/
+}
+
+.indicador_icon {
+	background-color: #45A49B;
+	flex: 1;
+	font-size: large;
+}
+
+.indicador_value {
+	background-color: #4DB6AC;
+	flex: 4;
+}

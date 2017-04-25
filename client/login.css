@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
-  width: 360px;
+  /*width: 360px;*/
   padding: 8% 0 0;
   margin: auto;
 }
@@ -11,7 +11,7 @@
   background: #FFFFFF;
   max-width: 360px;
   margin: 0 auto 100px;
-  padding: 45px;
+  padding: 40px;
   padding-top: 20px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -96,7 +96,13 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 
+.social-btn-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .social-btn-wrap {
+  flex: 1;
   display: inline;
   box-sizing: border-box;
   margin-left: 0;
@@ -114,13 +120,13 @@ body {
   text-decoration: none !important;
   vertical-align: middle;
   line-height: 40px;
-  position: relative;
+  /*position: relative;*/
   margin-bottom: 12px;
   cursor: pointer;
   border-radius: 3px;
   transition: none;
 
-  display: inline-block;
+  /*display: inline-block;*/
   padding: 0;
   height: 40px;
   font-size: 13px;
@@ -160,6 +166,7 @@ hr.login_divider{
 
 .login_logo {
   padding-bottom: 32px;
+  width: 100%;
 }
 
 .login_error {
