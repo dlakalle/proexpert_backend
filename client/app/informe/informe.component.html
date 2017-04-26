@@ -1,7 +1,7 @@
 <div layout="column">
   <h1>Informe de Sueldo</h1>
-  <div flex layout="row" layout-xs="column">
-    <div flex>
+  <div flex layout="row" layout-xs="column" layout-sm="column">
+    <div flex class="informe_item">
       <h2>Ingeniero Civil en Computación y Física Cuántica Nuclear del Átomo</h2>
       <p>Sueldo total: $1.239.000</p>
       <p>Cargo: Jefe de proyecto</p>
@@ -10,7 +10,7 @@
       <p>Industria: Salud</p>
     </div>
     
-    <div ng-repeat="tarjeta in $ctrl.tarjetas" flex>
+    <div ng-repeat="tarjeta in $ctrl.tarjetas" flex class="informe_item">
       <tarjeta config="tarjeta"></tarjeta>
     </div>
 
@@ -18,8 +18,8 @@
 
   <h1>Comparación</h1>
 
-  <div flex layout="row" layout-xs="column">
-    <div flex>
+  <div flex layout="row" layout-xs="column" layout-sm="column">
+    <div flex class="informe_item">
 
       <md-card>
         <md-card-title>
@@ -35,7 +35,7 @@
 
     </div>
 
-    <div flex>
+    <div flex class="informe_item">
 
       <md-card>
         <md-card-title>
@@ -51,7 +51,7 @@
 
     </div>
 
-    <div flex>
+    <div flex class="informe_item">
 
       <md-card>
         <md-card-title>
@@ -68,8 +68,8 @@
     </div>
   </div>
   <h1>Interpretación</h1>
-  <div flex layout="row" layout-xs="column">
-    <div flex>
+  <div flex layout="row" layout-xs="column" layout-sm="column">
+    <div flex class="informe_item">
 
       <md-card>
         <md-card-title>

@@ -6,7 +6,7 @@
 
       self.buttonText = '';
 
-      $scope.$watch(function() { return $mdMedia('gt-xs'); }, function(mediaTrue) {
+      $scope.$watch(function() { return $mdMedia('(min-width: 900px)'); }, function(mediaTrue) {
         self.bigScreen = mediaTrue;
       });
 
