@@ -2,7 +2,8 @@
   var app = angular.module('appModule', [
     'ngMaterial',
     'ui.router',
-    'angular-storage'
+    'angular-storage',
+    'googlechart'
   ])
   .config(function($mdThemingProvider) {
 
