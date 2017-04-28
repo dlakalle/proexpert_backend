@@ -1,7 +1,17 @@
 (function(){
   angular.module('appModule').component('layout', {
     templateUrl: 'app/layout/layout.component.html',
-    controller: function LayoutController($scope, $rootScope, $mdMedia, $mdSidenav, $mdBottomSheet, $state){
+    controller: function LayoutController(
+        $scope, 
+        $rootScope, 
+        $mdMedia, 
+        $mdSidenav, 
+        $mdBottomSheet, 
+        $state,
+        $location,
+        $anchorScroll
+      ){
+
       var self = this;
 
       self.buttonText = '';
@@ -49,6 +59,15 @@
       self.sideNavClick = function(logText){
         console.log('app.' + logText);
         $state.go('app.' + logText);
+
+        $mdSidenav('left-sidenav').close();
+      };
+
+      self.sideNavClickScroll = function(logText){
+        console.log('app.' + logText);
+        $location.hash(logText);
+        $mdSidenav('left-sidenav').close();
+        $anchorScroll();
       };
     }
   });
