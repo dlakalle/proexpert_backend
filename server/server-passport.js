@@ -91,16 +91,16 @@ for (var s in config) {
 }
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
-app.get('/login', function(req, res, next) {
-  console.log("############");
-  console.log(req.query);
-  console.log("############");
-  res.render('pages/index', {
-    user: req.user,
-    url: req.url,
-    credentials: req.query.credentials
-  });
-});
+// app.get('/login', function(req, res, next) {
+//   console.log("############");
+//   console.log(req.query);
+//   console.log("############");
+//   res.render('pages/index', {
+//     user: req.user,
+//     url: req.url,
+//     credentials: req.query.credentials
+//   });
+// });
 
 
 // app.get('/auth/account', ensureLoggedIn('/login'), function(req, res, next) {
@@ -112,12 +112,12 @@ app.get('/login', function(req, res, next) {
 //   res.redirect('/#!/' + req.accessToken.id + '/' +  req.accessToken.userId);
 // });
 
-app.get('/local', function(req, res, next) {
-  res.render('pages/local', {
-    user: req.user,
-    url: req.url,
-  });
-});
+// app.get('/local', function(req, res, next) {
+//   res.render('pages/local', {
+//     user: req.user,
+//     url: req.url,
+//   });
+// });
 
 app.get('/signup', function(req, res, next) {
   res.render('pages/signup', {

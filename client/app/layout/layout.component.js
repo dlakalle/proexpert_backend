@@ -9,7 +9,8 @@
         $mdBottomSheet, 
         $state,
         $location,
-        $anchorScroll
+        $anchorScroll,
+        authClientService
       ){
 
       var self = this;
@@ -37,7 +38,7 @@
         }
 
         self.buttonCallback = function(){
-          $rootScope.$broadcast('unauthenticated');
+          authClientService.logout();
         };
       };
 
