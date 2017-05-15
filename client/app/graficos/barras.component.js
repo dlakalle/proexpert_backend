@@ -39,8 +39,16 @@
       ]};
 
       self.myChartObject.options = {
-          'title': 'Industria (Considerando Carrera y Años de Experiencia)',
-          colors: ['#e7e8c0']
+        width: '100%',
+        height: '100%',
+        legend: 'none',
+        colors: ['#e7e8c0'],
+        chartArea: {
+          left: "20%",
+          top: "10%",
+          height: "70%",
+          width: "70%"
+        }
       };
 
     }

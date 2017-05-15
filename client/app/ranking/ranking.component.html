@@ -1,0 +1,15 @@
+<div class="ranking_container">
+  <div class="ranking_title">{{ $ctrl.titulo }}</div>
+  <div class="ranking_subtitle">{{ $ctrl.desc }}</div>
+  <div class="ranking_top">
+    <div ng-repeat="item in $ctrl.posiciones">
+      <ranking-item item="item"></ranking-item>
+      <md-divider style="margin: 0 15px;"></md-divider>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="ranking_you">
+    <ranking-item item="$ctrl.yours"></ranking-item>
+  </div>
+</div>

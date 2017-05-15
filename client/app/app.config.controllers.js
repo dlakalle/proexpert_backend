@@ -13,7 +13,7 @@
           authClientService.logout();
         }
 
-        authClientService.login();
+        authClientService.login(self.token, self.userId);
         
       }
     ]);

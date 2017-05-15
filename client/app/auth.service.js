@@ -14,9 +14,9 @@
       $state.go('login');
     }
 
-    function login(){
-      store.set('token', self.token);
-      store.set('userId', self.userId);
+    function login(token, userId){
+      store.set('token', token);
+      store.set('userId', userId);
       $rootScope.isAuth = true;
       $state.go('app.informe');
     }

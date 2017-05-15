@@ -20,6 +20,54 @@
           passClass: "fa-check"
         }
       ];
+
+      self.por_institucion = {
+        titulo: 'Comparación por Institución',
+        desc: 'Considerando Carrera - Años de Experiencia',
+        posiciones: [
+          {
+            nombre: 'Pontificia Universidad Católica',
+            sueldo: '2.777.261'
+          },
+          {
+            nombre: 'Universidad de Chile',
+            sueldo: '1.904.419'
+          },
+          {
+            nombre: 'Universidad Adolfo Ibañez',
+            sueldo: '1.198.444'
+          }
+        ],
+        yours: {
+          nombre: 'Universidad de Chile',
+          sueldo: '1.854.856',
+          resultado: true
+        }
+      };
+
+      self.por_cargo = {
+        titulo: 'Comparación por Cargo',
+        desc: 'Considerando Carrera - Años de Experiencia',
+        posiciones: [
+          {
+            nombre: 'Gerente General',
+            sueldo: '2.777.261'
+          },
+          {
+            nombre: 'Jefe',
+            sueldo: '1.904.419'
+          },
+          {
+            nombre: 'Ingeniero Junior',
+            sueldo: '1.198.444'
+          }
+        ],
+        yours: {
+          nombre: 'Jefe de Proyectos',
+          sueldo: '1.854.856',
+          resultado: false
+        }
+      }
     }
   });
 })();

@@ -1,0 +1,56 @@
+.ranking_container {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  min-height: 270px;
+}
+
+.ranking_title {
+  padding-top: 15px;
+  margin: 0px 15px;
+  margin-bottom: 5px;
+  font-size: medium;
+}
+
+.ranking_subtitle {
+  margin: 0 5px 15px 15px;
+  font-size: small;
+  color: #dfd8d6;
+}
+
+.ranking_item_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5px 0px;
+}
+
+.ranking_item {
+  margin: 2px 15px;
+  padding: 5px 5px;
+  font-size: small;
+}
+
+.ranking_item_left {
+  min-width: 180px;
+}
+
+.ranking_item_right {
+  margin-right: 20px;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.ranking_item_default {
+  background-color: #607d8b !important;
+}
+
+.ranking_item_success {
+  background-color: #78b344 !important;
+}
+
+.ranking_item_failure {
+  background-color: #ef5350 !important;
+}
