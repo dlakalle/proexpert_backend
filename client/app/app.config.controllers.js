@@ -6,14 +6,20 @@
         self.token = $stateParams.token;
         self.userId = $stateParams.userId;
 
-        console.log(self.token);
-        console.log(self.userId);
+        authClientService.isAuthenticated({
+          token: self.token,
+          userId: self.userId
+        }).then(function(response){
+          
+          if(response.data.auth){
+            authClientService.login(self.token, self.userId);
+          }
+          else{
+            authClientService.logout();
+          }
 
-        if(self.token === 'no_auth'){
-          authClientService.logout();
-        }
+        });
 
-        authClientService.login(self.token, self.userId);
         
       }
     ]);

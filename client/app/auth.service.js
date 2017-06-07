@@ -5,7 +5,8 @@
     $state, 
     $stateParams, 
     $window, 
-    store
+    store,
+    $http
   ){
     function logout(){
       store.remove('token');
@@ -21,9 +22,46 @@
       $state.go('app.informe');
     }
 
+    function attempRefresh(){
+      var token = store.get('token');
+      var userId = store.get('userId');
+
+      if(!!token && !!userId){
+        isAuthenticated({
+          token: token,
+          userId: userId
+        }).then(function successCallback(response){
+          if(response.data.auth){
+            $rootScope.isAuth = true;
+          }
+          else{
+            logout();
+          }
+        }, function errorCallback(err){
+          logout();
+        });
+      }
+      else{
+        logout();
+      }
+    }
+
+    function isAuthenticated(args){
+      return $http({
+          method: 'POST',
+          url: '/auth/valid',
+          data: {
+            token: args.token,
+            userId: args.userId
+          }
+        });
+    }
+
     return {
       login: login,
-      logout: logout
+      logout: logout,
+      isAuthenticated: isAuthenticated,
+      attempRefresh: attempRefresh
     };
 
   });

@@ -184,7 +184,7 @@ hr.login_divider{
 @media screen and (min-width: 380px) {
     .login-page {
         width: 360px;
-        padding: 4% 0 0;
+        padding: 6% 0 0;
     }
 
     .form {

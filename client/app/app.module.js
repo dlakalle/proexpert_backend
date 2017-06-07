@@ -19,6 +19,14 @@
     // .accentPalette('grey', {
     //   'default': '400' // use shade 200 for default, and keep all other shades the same
     // });
+  })
+  .run(function ($rootScope, $state, authClientService) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      var condition = !$rootScope.isAuth && toState.name !== 'login' && toState.name !== 'tokenizer';
+      if (condition){
+        authClientService.attempRefresh();
+      }
+    });
   });
 
 })();

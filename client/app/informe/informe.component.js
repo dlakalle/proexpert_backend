@@ -1,9 +1,9 @@
 (function(){
   angular.module('appModule').component('informe', {
     templateUrl: 'app/informe/informe.component.html',
-    controller: function InformeController(){
+    controller: function InformeController(authClientService){
       var self = this;
-      
+
       self.tarjetas = [
         {
           value: "1.300.000",

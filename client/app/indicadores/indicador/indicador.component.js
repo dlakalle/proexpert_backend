@@ -7,7 +7,6 @@
     },
     controller: function IndicadorController(){
       var self = this;
-      console.log(self.iconClass);
     }
   });
 })();

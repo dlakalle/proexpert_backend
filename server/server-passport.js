@@ -7,7 +7,7 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var app = module.exports = loopback();
-var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 // Passport configurators..
@@ -64,16 +64,16 @@ app.middleware('auth', loopback.token({
   model: app.models.accessToken,
 }));
 
-app.middleware('session:before', cookieParser(app.get('cookieSecret')));
-app.middleware('session', session({
-  secret: 'kitty',
-  saveUninitialized: true,
-  resave: true,
-  // cookie: {
-  //   httpOnly: true,
-  //   secure: true
-  // }
-}));
+// app.middleware('session:before', cookieParser(app.get('cookieSecret')));
+// app.middleware('session', session({
+//   secret: 'kitty',
+//   saveUninitialized: true,
+//   resave: true,
+//   // cookie: {
+//   //   httpOnly: true,
+//   //   secure: true
+//   // }
+// }));
 passportConfigurator.init();
 
 // We need flash messages to see passport errors
@@ -91,33 +91,6 @@ for (var s in config) {
 }
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
-// app.get('/login', function(req, res, next) {
-//   console.log("############");
-//   console.log(req.query);
-//   console.log("############");
-//   res.render('pages/index', {
-//     user: req.user,
-//     url: req.url,
-//     credentials: req.query.credentials
-//   });
-// });
-
-
-// app.get('/auth/account', ensureLoggedIn('/login'), function(req, res, next) {
-//   // console.log(req.user, req.url, res);
-//   // res.render('pages/loginProfiles', {
-//   //   user: req.user,
-//   //   url: req.url,
-//   // });
-//   res.redirect('/#!/' + req.accessToken.id + '/' +  req.accessToken.userId);
-// });
-
-// app.get('/local', function(req, res, next) {
-//   res.render('pages/local', {
-//     user: req.user,
-//     url: req.url,
-//   });
-// });
 
 app.get('/signup', function(req, res, next) {
   res.render('pages/signup', {
@@ -156,10 +129,84 @@ app.post('/signup', function(req, res, next) {
 
 app.get('/auth/logout', function(req, res, next) {
   req.logout();
-  res.clearCookie('access_token');
-  res.clearCookie('userId');
+  // res.clearCookie('access_token');
+  // res.clearCookie('userId');
   res.redirect('/login');
 });
+
+app.post('/auth/valid', function(req, res, next) {
+  var User = app.models.user;
+  var accessToken = app.models.accessToken;
+
+  var u;
+  var t;
+
+  res.setHeader('Content-Type', 'application/json');
+
+  accessToken.findById(req.body.token, function(err, token){
+    if(err){
+      return res.send(JSON.stringify({
+        auth: false,
+        message: 'invalid token'
+      }));
+    }
+    else{
+      t = token;
+      User.findById(req.body.userId, function(err, user){
+        if(err){
+          return res.send(JSON.stringify({
+            auth: false,
+            message: 'invalid user'
+          }));
+        }
+        else{
+          u = user;
+          console.log(user.id.toString(), typeof(user.id.toString()));
+          console.log(token.userId.toString(), typeof(token.userId.toString()));
+          if(user.id.toString() !== token.userId.toString()){
+            return res.send(JSON.stringify({
+              auth: false,
+              message: "token doesn't belong to user"
+            }));
+          }
+
+          return res.send(JSON.stringify({
+            auth: true,
+            message: 'authentication successful',
+            user: u
+          }));
+        }
+      });
+    }
+  });
+
+});
+
+app.post('/change-password', function(req, res, next) {
+  var User = app.models.user;
+  if (!req.accessToken) return res.sendStatus(401);
+  //verify passwords match
+  if (!req.body.password || !req.body.confirmation ||
+    req.body.password !== req.body.confirmation) {
+    return res.sendStatus(400, new Error('Passwords do not match'));
+  }
+
+  User.findById(req.accessToken.userId, function(err, user) {
+    if (err) return res.sendStatus(404);
+    user.hasPassword(req.body.oldPassword, function(err, isMatch) {
+      if (!isMatch) {
+        return res.sendStatus(401);
+      } else {
+        user.updateAttribute('password', User.hashPassword(req.body.password), function(err, user) {
+          if (err) return res.sendStatus(404);
+          console.log('> password change request processed successfully');
+          res.status(200).json({msg: 'password change request processed successfully'});
+        });
+      }
+    });
+  });
+});
+
 
 app.start = function() {
   // start the web server
