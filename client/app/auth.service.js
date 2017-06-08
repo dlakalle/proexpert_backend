@@ -57,11 +57,25 @@
         });
     }
 
+    function changePassword(args){
+      return $http({
+          method: 'POST',
+          url: '/change-password',
+          data: {
+            password: args.password,
+            confirmation: args.confirmation,
+            oldPassword: args.oldPassword,
+            token: store.get('token')
+          }
+        });
+    }
+
     return {
       login: login,
       logout: logout,
       isAuthenticated: isAuthenticated,
-      attempRefresh: attempRefresh
+      attempRefresh: attempRefresh,
+      changePassword: changePassword
     };
 
   });

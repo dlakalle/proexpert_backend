@@ -179,6 +179,10 @@ hr.login_divider{
   font-weight: bold;
 }
 
+.login-form-title {
+  font-size: larger;
+}
+
 /*#DB4437*/
 
 @media screen and (min-width: 380px) {
@@ -190,4 +194,12 @@ hr.login_divider{
     .form {
       padding: 20px 45px;
     }
+
+    .login-form-title {
+      font-size: x-large;
+    }
+}
+
+.md-dialog-container {
+    height: 100% !important;
 }

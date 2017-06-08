@@ -81,7 +81,20 @@
       self.showDialog = function($event, locals){
         var config = {
           controller: function($scope){
-            $scope.message = 'Hola Mundo';
+            $scope.password = '';
+            $scope.confirmation = '';
+            $scope.oldPassword = '';
+            $scope.cambiarPassword = function(){
+              authClientService.changePassword({
+                password: $scope.password,
+                confirmation: $scope.confirmation,
+                oldPassword: $scope.oldPassword
+              }).then(function successCallback(response){
+                console.log(response);
+              }, function errorCallback(error){
+                console.log('Error:', error);
+              });
+            }
           },
           templateUrl: 'app/usuario/cambiar-password.html',
           parent: angular.element(document.body),

@@ -184,27 +184,42 @@ app.post('/auth/valid', function(req, res, next) {
 
 app.post('/change-password', function(req, res, next) {
   var User = app.models.user;
+  var accessToken = app.models.accessToken;
+  
   if (!req.body.token) return res.sendStatus(401);
-  //verify passwords match
-  if (!req.body.password || !req.body.confirmation ||
-    req.body.password !== req.body.confirmation) {
-    return res.sendStatus(400, new Error('Passwords do not match'));
-  }
 
-  User.findById(req.body.token.userId, function(err, user) {
-    if (err) return res.sendStatus(404);
-    user.hasPassword(req.body.oldPassword, function(err, isMatch) {
-      if (!isMatch) {
-        return res.sendStatus(401);
-      } else {
-        user.updateAttribute('password', User.hashPassword(req.body.password), function(err, user) {
-          if (err) return res.sendStatus(404);
-          console.log('> password change request processed successfully');
-          res.status(200).json({msg: 'password change request processed successfully'});
-        });
+  accessToken.findById(req.body.token, function(err, token){
+    if(err || token === null){
+      return res.send(JSON.stringify({
+        auth: false,
+        message: 'invalid token'
+      }));
+    }
+    else{
+      //verify passwords match
+      if (!req.body.password || !req.body.confirmation ||
+        req.body.password !== req.body.confirmation) {
+        return res.sendStatus(400, new Error('Passwords do not match'));
       }
-    });
+
+      User.findById(token.userId, function(err, user) {
+        if (err) return res.sendStatus(404);
+        user.hasPassword(req.body.oldPassword, function(err, isMatch) {
+          if (!isMatch) {
+            return res.sendStatus(401);
+          } else {
+            user.updateAttribute('password', User.hashPassword(req.body.password), function(err, user) {
+              if (err) return res.sendStatus(404);
+              console.log('> password change request processed successfully');
+              res.status(200).json({msg: 'password change request processed successfully'});
+            });
+          }
+        });
+      });
+
+    }
   });
+
 });
 
 
