@@ -10,7 +10,8 @@
         $state,
         $location,
         $anchorScroll,
-        authClientService
+        authClientService,
+        $mdDialog
       ){
 
       var self = this;
@@ -51,6 +52,8 @@
             $scope.buttonCallback = self.buttonCallback;
             $scope.buttonText = self.buttonText;
 
+            $scope.changePassword = self.changePassword;
+
           }
         }).then(function(clickedItem) {
           console.log(clickedItem);
@@ -70,6 +73,27 @@
         $mdSidenav('left-sidenav').close();
         $anchorScroll();
       };
+
+      self.changePassword = function($event){
+        self.showDialog($event, {});
+      };
+
+      self.showDialog = function($event, locals){
+        var config = {
+          controller: function($scope){
+            $scope.message = 'Hola Mundo';
+          },
+          templateUrl: 'app/usuario/cambiar-password.html',
+          parent: angular.element(document.body),
+          targetEvent: $event,
+          clickOutsideToClose: true
+        };
+
+        config.locals = locals;
+
+        $mdDialog.show(config);
+      };
+
     }
   });
 })();
