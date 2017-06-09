@@ -181,6 +181,9 @@ hr.login_divider{
 
 .login-form-title {
   font-size: larger;
+  color: #675e59;
+  font-weight: 100;
+  margin-top: 0px;
 }
 
 /*#DB4437*/

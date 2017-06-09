@@ -91,8 +91,11 @@
                 oldPassword: $scope.oldPassword
               }).then(function successCallback(response){
                 console.log(response);
+                $mdDialog.hide();
+                self.showAlert(null, 'Cambio Contraseña', 'Operación Exitosa.');
               }, function errorCallback(error){
                 console.log('Error:', error);
+                self.showAlert(null, 'Cambio Contraseña', 'Hubo un error en la operación, intente nuevamente.');
               });
             }
           },
@@ -106,6 +109,20 @@
 
         $mdDialog.show(config);
       };
+
+      self.showAlert = function(ev, title, message) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .clickOutsideToClose(true)
+            .title(title)
+            .textContent(message)
+            .ariaLabel('Notification')
+            .ok('ACEPTAR')
+            .targetEvent(ev)
+        );
+      };
+
 
     }
   });
