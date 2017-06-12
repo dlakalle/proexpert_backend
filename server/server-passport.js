@@ -196,51 +196,86 @@ app.post('/user/informe', function(req, res, next) {
       }));
     }
 
+    var carrera = 'Ingeniería Civil en Computación';
+    var sueldo = 1500000;
+    var industria = 'Software y Telecomunicaciones';
+    var institucion = 'Universidad de Chile';
+    var anos_exp = 3;
+    var cargo = 'Consultor Junior';
 
     return res.send(JSON.stringify({
       informe: {
-        carrera: 'Ingeniería Civil en Computación',
-        sueldo: 1500000,
-        industria: 'Software y Telecomunicaciones',
-        institucion: 'Universidad de Chile',
-        anos_exp: 3,
-        cargo: 'Consultor Junior',
+        carrera: carrera,
+        sueldo: sueldo,
+        industria: industria,
+        institucion: institucion,
+        anos_exp: anos_exp,
+        cargo: cargo,
         tarjetas: [
           {
             description: 'Al realizar una comparación de tu sueldo con otros ingenieros que comparten tu Carrera, Industria y Años de Experiencia, tu sueldo es $255.000 inferior que el promedio. En un ranking de 0 a 100 donde 0 es el menor y 100 es el mayor, tú estás en el lugar:',
             percent: 35,
-            value: "1.300.000",
+            value: sueldo,
             iconClass: "fa-graduation-cap",
             passClass: "fa-times"
           },
           {
             description: 'Descripción de comparación',
             percent: 69,
-            value: "1.550.000",
+            value: sueldo,
             iconClass: "fa-black-tie",
             passClass: "fa-check"
           },
         ],
+
+        por_industria: {
+          titulo: 'Comparación por Industria',
+          desc: 'Considerando Carrera - Años de Experiencia',
+          posiciones: [
+            {
+              nombre: 'Minería',
+              sueldo: 3000000
+            },
+            {
+              nombre: 'Financiera',
+              sueldo: 1700000
+            },
+            {
+              nombre: 'Energía',
+              sueldo: 2300000
+            },
+            {
+              nombre: 'Informática',
+              sueldo: 1500000
+            }
+          ],
+          yours: {
+            nombre: industria,
+            sueldo: 1350000,
+            resultado: false
+          }
+        },
+
         por_institucion: {
           titulo: 'Comparación por Institución',
           desc: 'Considerando Carrera - Años de Experiencia',
           posiciones: [
             {
               nombre: 'Pontificia Universidad Católica',
-              sueldo: '2.777.261'
+              sueldo: 2777261
             },
             {
               nombre: 'Universidad de Chile',
-              sueldo: '1.904.419'
+              sueldo: 1904419
             },
             {
               nombre: 'Universidad Adolfo Ibañez',
-              sueldo: '1.198.444'
+              sueldo: 1198444
             }
           ],
           yours: {
-            nombre: 'Universidad de Chile',
-            sueldo: '1.854.856',
+            nombre: institucion,
+            sueldo: sueldo,
             resultado: true
           }
         },
@@ -251,20 +286,20 @@ app.post('/user/informe', function(req, res, next) {
           posiciones: [
             {
               nombre: 'Gerente General',
-              sueldo: '2.777.261'
+              sueldo: 2777261
             },
             {
               nombre: 'Jefe',
-              sueldo: '1.904.419'
+              sueldo: 1904419
             },
             {
               nombre: 'Ingeniero Junior',
-              sueldo: '1.198.444'
+              sueldo: 1198444
             }
           ],
           yours: {
-            nombre: 'Jefe de Proyectos',
-            sueldo: '1.854.856',
+            nombre: cargo,
+            sueldo: sueldo,
             resultado: false
           }
         }

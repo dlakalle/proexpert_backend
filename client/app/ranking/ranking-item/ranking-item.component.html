@@ -3,6 +3,6 @@
   <div 
     class="ranking_item ranking_item_right"
     ng-class="$ctrl.bgClass">
-    ${{ $ctrl.item.sueldo }}
+    {{ $ctrl.item.sueldo  | currency:"$":0 | comma2dot }}
   </div>
 </div>

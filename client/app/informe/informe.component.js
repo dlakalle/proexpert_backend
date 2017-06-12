@@ -8,9 +8,11 @@
         informeService.getInforme().then(
           function successCallback(response){
           console.log('informe:', response);
+          self.informe = response.data.informe;
           self.tarjetas = response.data.informe.tarjetas;
           self.por_cargo = response.data.informe.por_cargo;
           self.por_institucion = response.data.informe.por_institucion;
+          self.por_industria = response.data.informe.por_industria;
         }, function errorCallback(error){
           console.log(error);
         });

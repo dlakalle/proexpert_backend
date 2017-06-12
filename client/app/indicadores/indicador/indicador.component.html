@@ -3,6 +3,6 @@
         <i class="fa {{ $ctrl.iconClass }}"></i>
     </div>
     <div class="indicador_value">
-        ${{ $ctrl.value }}
+        {{ $ctrl.value | currency:"$":0 | comma2dot}}
     </div>
 </div>

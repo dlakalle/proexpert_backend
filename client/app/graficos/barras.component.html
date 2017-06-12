@@ -1,5 +1,7 @@
 <div class="ranking_container">
-  <div class="ranking_title">Comparación por Industria</div>
-  <div class="ranking_subtitle">Considerando Carrera - Años de Experiencia</div>
-  <div google-chart chart="$ctrl.myChartObject"></div>
+  <div class="ranking_title">{{ $ctrl.config.titulo }}</div>
+  <div class="ranking_subtitle">{{ $ctrl.config.desc }}</div>
+  <div ng-if="$ctrl.myChartObject.ready">
+    <div google-chart chart="$ctrl.myChartObject"></div>
+  </div>
 </div>

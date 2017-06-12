@@ -55,6 +55,19 @@
         });
 
       }
-    ]);
+    ]).run(function ($rootScope, $state, authClientService, $mdDialog) {
+      $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        var condition = !$rootScope.isAuth && toState.name !== 'login' && toState.name !== 'tokenizer';
+        if (condition){
+          authClientService.attempRefresh();
+        }
+      });
+
+      $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
+        $mdDialog.cancel();
+      });
+
+    });
 
 })();
+
