@@ -199,7 +199,7 @@ app.post('/user/informe', function(req, res, next) {
 
     return res.send(JSON.stringify({
       informe: {
-        carrera: 'Ingeniería Civil en Computación'
+        carrera: 'Ingeniería Civil en Computación',
         sueldo: 1500000,
         industria: 'Software y Telecomunicaciones',
         institucion: 'Universidad de Chile',
@@ -207,15 +207,67 @@ app.post('/user/informe', function(req, res, next) {
         cargo: 'Consultor Junior',
         tarjetas: [
           {
-            desc: 'Al realizar una comparación de tu sueldo con otros ingenieros que comparten tu Carrera, Industria y Años de Experiencia, tu sueldo es $255.000 inferior que el promedio. En un ranking de 0 a 100 donde 0 es el menor y 100 es el mayor, tú estás en el lugar:',
-            percent: 35
+            description: 'Al realizar una comparación de tu sueldo con otros ingenieros que comparten tu Carrera, Industria y Años de Experiencia, tu sueldo es $255.000 inferior que el promedio. En un ranking de 0 a 100 donde 0 es el menor y 100 es el mayor, tú estás en el lugar:',
+            percent: 35,
+            value: "1.300.000",
+            iconClass: "fa-graduation-cap",
+            passClass: "fa-times"
           },
           {
-            desc: 'Descripción de comparación'
-            percent: 69
+            description: 'Descripción de comparación',
+            percent: 69,
+            value: "1.550.000",
+            iconClass: "fa-black-tie",
+            passClass: "fa-check"
           },
         ],
-        rankings: []
+        por_institucion: {
+          titulo: 'Comparación por Institución',
+          desc: 'Considerando Carrera - Años de Experiencia',
+          posiciones: [
+            {
+              nombre: 'Pontificia Universidad Católica',
+              sueldo: '2.777.261'
+            },
+            {
+              nombre: 'Universidad de Chile',
+              sueldo: '1.904.419'
+            },
+            {
+              nombre: 'Universidad Adolfo Ibañez',
+              sueldo: '1.198.444'
+            }
+          ],
+          yours: {
+            nombre: 'Universidad de Chile',
+            sueldo: '1.854.856',
+            resultado: true
+          }
+        },
+
+        por_cargo: {
+          titulo: 'Comparación por Cargo',
+          desc: 'Considerando Carrera - Años de Experiencia',
+          posiciones: [
+            {
+              nombre: 'Gerente General',
+              sueldo: '2.777.261'
+            },
+            {
+              nombre: 'Jefe',
+              sueldo: '1.904.419'
+            },
+            {
+              nombre: 'Ingeniero Junior',
+              sueldo: '1.198.444'
+            }
+          ],
+          yours: {
+            nombre: 'Jefe de Proyectos',
+            sueldo: '1.854.856',
+            resultado: false
+          }
+        }
       }
     }));
 
