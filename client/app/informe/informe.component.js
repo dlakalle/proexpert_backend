@@ -1,8 +1,17 @@
 (function(){
   angular.module('appModule').component('informe', {
     templateUrl: 'app/informe/informe.component.html',
-    controller: function InformeController(authClientService){
+    controller: function InformeController(authClientService, informeService){
       var self = this;
+
+      self.$onInit = function(){
+        informeService.getInforme().then(
+          function successCallback(response){
+          console.log('informe:', response);
+        }, function errorCallback(error){
+          console.log(error);
+        });
+      };
 
       self.tarjetas = [
         {

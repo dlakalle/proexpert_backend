@@ -186,6 +186,13 @@ hr.login_divider{
   margin-top: 0px;
 }
 
+md-dialog .md-confirm-button.md-button {
+  background: #43A047 !important;
+}
+
+md-dialog .md-confirm-button.md-button:focus {
+  background: #43A047 !important;
+}
 /*#DB4437*/
 
 @media screen and (min-width: 380px) {

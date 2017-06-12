@@ -182,6 +182,47 @@ app.post('/auth/valid', function(req, res, next) {
 
 });
 
+app.post('/user/informe', function(req, res, next) {
+  var accessToken = app.models.accessToken;
+  // var Informe = app.models.informe;
+  
+  if (!req.body.token) return res.sendStatus(401);
+
+  accessToken.findById(req.body.token, function(err, token){
+    if(err || token === null){
+      return res.send(JSON.stringify({
+        auth: false,
+        message: 'invalid token'
+      }));
+    }
+
+
+    return res.send(JSON.stringify({
+      informe: {
+        carrera: 'Ingeniería Civil en Computación'
+        sueldo: 1500000,
+        industria: 'Software y Telecomunicaciones',
+        institucion: 'Universidad de Chile',
+        anos_exp: 3,
+        cargo: 'Consultor Junior',
+        tarjetas: [
+          {
+            desc: 'Al realizar una comparación de tu sueldo con otros ingenieros que comparten tu Carrera, Industria y Años de Experiencia, tu sueldo es $255.000 inferior que el promedio. En un ranking de 0 a 100 donde 0 es el menor y 100 es el mayor, tú estás en el lugar:',
+            percent: 35
+          },
+          {
+            desc: 'Descripción de comparación'
+            percent: 69
+          },
+        ],
+        rankings: []
+      }
+    }));
+
+  });
+
+});
+
 app.post('/change-password', function(req, res, next) {
   var User = app.models.user;
   var accessToken = app.models.accessToken;
