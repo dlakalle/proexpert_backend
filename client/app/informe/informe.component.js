@@ -16,6 +16,16 @@
         }, function errorCallback(error){
           console.log(error);
         });
+
+
+
+        informeService.getEncuesta().then(
+          function successCallback(response){
+          console.log("ENCUESTA:", response.data);
+        }, function errorCallback(error){
+          console.log(error);
+        });
+
       };
 
     }

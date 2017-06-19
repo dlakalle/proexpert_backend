@@ -1,0 +1,1 @@
+mongoimport --db proexpert --collection encuesta --file data.json

@@ -30,8 +30,27 @@
 
     }
 
+    function getEncuesta(){
+      var token = store.get('token');
+      var userId = store.get('userId');
+
+      if(!!token && !!userId){
+        return $http({
+          method: 'POST',
+          url: '/user/encuesta',
+          data: {
+            token: store.get('token')
+          }
+        });
+      }
+      else{
+        return undefined;
+      }
+    }
+
     return {
-      getInforme: getInforme
+      getInforme: getInforme,
+      getEncuesta: getEncuesta
     };
 
   });

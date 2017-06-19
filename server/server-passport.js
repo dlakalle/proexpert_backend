@@ -310,6 +310,52 @@ app.post('/user/informe', function(req, res, next) {
 
 });
 
+
+app.post('/user/encuesta', function(req, res, next) {
+  var accessToken = app.models.accessToken;
+  var User = app.models.user;
+  var encuesta = app.models.encuesta;
+
+  if (!req.body.token) return res.sendStatus(401);
+
+  accessToken.findById(req.body.token, function(err, token){
+    if(err || token === null){
+      return res.send(JSON.stringify({
+        auth: false,
+        message: 'invalid token'
+      }));
+    }
+
+    User.findById(token.userId, function(err, user){
+      if(err || user === null){
+        return res.send(JSON.stringify({
+          auth: false,
+          message: 'could not find user'
+        }));
+      }
+      else{
+        encuesta.findOne({where: {email: user.email}}, function(err, encuesta){
+          if(err || encuesta === null){
+            return res.send(JSON.stringify({
+              auth: false,
+              message: 'record not found'
+            }));
+          }
+          else {
+            return res.send(JSON.stringify(encuesta));
+          }
+        });
+      }
+    });
+
+
+  });
+
+});
+
+
+
+
 app.post('/change-password', function(req, res, next) {
   var User = app.models.user;
   var accessToken = app.models.accessToken;
