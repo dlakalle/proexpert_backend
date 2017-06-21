@@ -10,6 +10,9 @@ var app = module.exports = loopback();
 // var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
+// para realizar "group by" en arreglos de objetos
+var groupArray = require('group-array');
+
 // Passport configurators..
 var loopbackPassport = require('loopback-component-passport');
 var PassportConfigurator = loopbackPassport.PassportConfigurator;
@@ -92,37 +95,23 @@ for (var s in config) {
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
-app.get('/signup', function(req, res, next) {
-  res.render('pages/signup', {
-    user: req.user,
-    url: req.url,
-  });
-});
-
-app.post('/signup', function(req, res, next) {
+app.post('/user/create', function(req, res, next) {
   var User = app.models.user;
 
   var newUser = {};
   newUser.email = req.body.email.toLowerCase();
-  newUser.username = req.body.username.trim();
   newUser.password = req.body.password;
+  newUser.emailVerified = true;
 
   User.create(newUser, function(err, user) {
     if (err) {
-      req.flash('error', err.message);
-      return res.redirect('back');
+      return res.send(JSON.stringify({
+        message: "couldn't create user: " + newUser.email
+      }));
     } else {
-      // Passport exposes a login() function on req (also aliased as logIn())
-      // that can be used to establish a login session. This function is
-      // primarily used when users sign up, during which req.login() can
-      // be invoked to log in the newly registered user.
-      req.login(user, function(err) {
-        if (err) {
-          req.flash('error', err.message);
-          return res.redirect('back');
-        }
-        return res.redirect('/auth/account');
-      });
+      return res.send(JSON.stringify({
+        message: "user created successfully: " + newUser.email
+      }));
     }
   });
 });
@@ -314,7 +303,7 @@ app.post('/user/informe', function(req, res, next) {
 app.post('/user/encuesta', function(req, res, next) {
   var accessToken = app.models.accessToken;
   var User = app.models.user;
-  var encuesta = app.models.encuesta;
+  var Encuesta = app.models.encuesta;
 
   if (!req.body.token) return res.sendStatus(401);
 
@@ -334,7 +323,7 @@ app.post('/user/encuesta', function(req, res, next) {
         }));
       }
       else{
-        encuesta.findOne({where: {email: user.email}}, function(err, encuesta){
+        Encuesta.findOne({where: {email: user.email}}, function(err, encuesta){
           if(err || encuesta === null){
             return res.send(JSON.stringify({
               auth: false,
@@ -342,7 +331,22 @@ app.post('/user/encuesta', function(req, res, next) {
             }));
           }
           else {
-            return res.send(JSON.stringify(encuesta));
+
+            Encuesta.find({limit: 1000}, function(err, encuestas){
+              if(err){
+                return res.send(JSON.stringify({
+                  encuesta: encuesta,
+                  message: "group array ERROR"
+                }));
+              }
+              else {
+                return res.send(JSON.stringify({
+                  encuesta: encuesta,
+                  grouped: groupArray(encuestas, 'carrera', 'institucion')
+                }));
+              }
+            });
+
           }
         });
       }
