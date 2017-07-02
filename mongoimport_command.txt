@@ -1,1 +1,32 @@
 mongoimport --db proexpert --collection encuesta --file data.json
+
+
+db.encuesta.update({"bonos": {"$exists": false} }, {"$set": { "bonos": "0"} }, { multi: true } )
+db.encuesta.update({"bonos": "" }, {"$set": { "bonos": "0"} }, {multi: true})
+db.encuesta.update({"variable": {"$exists": false} }, {"$set": { "variable": "0"} }, {multi: true})
+db.encuesta.update({"variable": ""}, {"$set": { "variable": "0"} }, {multi: true})
+db.encuesta.update({"salarioliquido": {"$exists": false} }, {"$set": { "salarioliquido": "0"} }, {multi: true})
+db.encuesta.update({"salarioliquido": "" }, {"$set": { "salarioliquido": "0"} }, {multi: true})
+
+db.encuesta.find().forEach(function(data) {
+    db.encuesta.update({
+        "_id": data._id
+    }, {
+        "$set": {
+            "anoexp": parseInt(data['anoexp']),
+            "bonos": parseInt(data['bonos'].replace(/\$|\./g, '')),
+            "variable": parseInt(data['variable'].replace(/\$|\./g, '')),
+            "salarioliquido": parseInt(data['salarioliquido'].replace(/\$|\./g, ''))
+        }
+    });
+})
+
+db.encuesta.find().forEach(function(data) {
+    db.encuesta.update({
+        "_id": data._id
+    }, {
+        "$set": {
+            "sueldo": data['bonos'] + data['variable'] + data['salarioliquido']
+        }
+    });
+})

@@ -12,6 +12,7 @@ var session = require('express-session');
 
 // para realizar "group by" en arreglos de objetos
 var groupArray = require('group-array');
+var ss = require('simple-statistics');
 
 // Passport configurators..
 var loopbackPassport = require('loopback-component-passport');
@@ -331,8 +332,35 @@ app.post('/user/encuesta', function(req, res, next) {
             }));
           }
           else {
+            // db.encuesta.find().forEach(function(data) {
+            //     db.encuesta.update({
+            //         "_id": data._id
+            //     }, {
+            //         "$set": {
+            //             "anoexp": parseInt(data.anoexp)
+            //         }
+            //     });
+            // })
 
-            Encuesta.find({limit: 1000}, function(err, encuestas){
+            Encuesta.find({where: {
+              and: [
+                {
+                  or: [
+                    { carrera: encuesta.carrera }, 
+                    { industria: encuesta.industria }, 
+                    { institucion: encuesta.institucion },
+                  ]
+                },
+                { 
+                  anoexp: {
+                    between: [
+                      parseInt(encuesta.anoexp - 1),
+                      parseInt(encuesta.anoexp + 1)
+                    ]
+                  }
+                }
+              ]
+            }}, function(err, encuestas){
               if(err){
                 return res.send(JSON.stringify({
                   encuesta: encuesta,
@@ -340,9 +368,31 @@ app.post('/user/encuesta', function(req, res, next) {
                 }));
               }
               else {
+
+                var carr_indust = groupArray(encuestas, 'carrera', 'industria')
+                carr_indust = carr_indust[encuesta['carrera']][encuesta['industria']];
+
+                var institut_carr = groupArray(encuestas, 'carrera', 'institucion');
+                institut_carr = institut_carr[encuesta['carrera']];
+
+                var indust_carr = groupArray(encuestas, 'carrera', 'industria');
+                indust_carr = indust_carr[encuesta['carrera']];
+
+                var cargo_carr = groupArray(encuestas, 'carrera', 'cargo');
+                cargo_carr = cargo_carr[encuesta['carrera']];
+
+                var genero = groupArray(encuestas, 'genero', 'genero');
+                // genero = genero[encuesta['carrera']];
+
                 return res.send(JSON.stringify({
                   encuesta: encuesta,
-                  grouped: groupArray(encuestas, 'carrera', 'institucion')
+                  carr_indust: getRanking(carr_indust)[encuesta['sueldo']],
+                  cargo_indust: groupArray(encuestas, 'cargo', 'industria'),
+                  indust_carr: getTopFromRanking(encuesta, indust_carr, 'industria', 4),
+                  institut_carr: getTopFromRanking(encuesta, institut_carr, 'institucion', 3),
+                  cargo_carr: getTopFromRanking(encuesta, cargo_carr, 'cargo', 3),
+                  genero: genero,
+                  encuestas: encuestas
                 }));
               }
             });
@@ -357,8 +407,55 @@ app.post('/user/encuesta', function(req, res, next) {
 
 });
 
+var getRanking = function(array){
+  var sueldos, sorted, ranks, n, dict, i;
 
+  sueldos = array.map(function(x){ return x['sueldo']; });
+  sorted = sueldos.sort(function(a, b){ return a - b });
+  ranks = sueldos.map(function(v){ return sorted.indexOf(v) + 1 });
 
+  n = ranks.length;
+  dict = {};
+
+  for(i = 0; i < n; i ++){
+    dict[sorted[i]] = Math.round((ranks[i]/n)*100);
+  }
+  return dict;
+};
+
+var getTopFromRanking = function(encuesta, encuestas_agrupadas, filtro, k){
+  var sorted, sueldos, i, nombre, item, tmp, item_cliente;
+  sueldos = [];
+  for(i in encuestas_agrupadas){
+    nombre = encuestas_agrupadas[i][0][filtro];
+    tmp = encuestas_agrupadas[i].map(function(x){ return x['sueldo']; });
+    item = {
+      nombre: nombre,
+      sueldo_prom: Math.round(ss.mean(tmp)),
+      sueldo_median: Math.round(ss.median(tmp))
+    };
+
+    if(encuesta[filtro] !== nombre){
+      sueldos.push(item);
+    }
+    else {
+      item_cliente = item;
+    }
+  }
+
+  sorted = sueldos.sort(function(a, b){ return b['sueldo_prom'] - a['sueldo_prom'] });
+  
+  return {
+    items: sorted.slice(0, k),
+    item_cliente: item_cliente
+  };
+};
+
+var getGlobalStats = function(array, field){
+  var grouped = groupArray(array, field);
+
+  for(i in grouped)
+};
 
 app.post('/change-password', function(req, res, next) {
   var User = app.models.user;
