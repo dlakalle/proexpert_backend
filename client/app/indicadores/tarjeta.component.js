@@ -11,10 +11,12 @@
       	if(self.config.percent > 50){
       		self.pass = "check";
       		self.passColor = "#77B346";
-      	}
-      	else{
-      		self.pass = "close";
-      		self.passColor = "#EF5350";
+          self.passClass = "fa-check";
+        }
+        else{
+          self.pass = "close";
+          self.passColor = "#EF5350";
+          self.passClass = "fa-times";
       	}
       };
     }

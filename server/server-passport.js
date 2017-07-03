@@ -172,7 +172,7 @@ app.post('/auth/valid', function(req, res, next) {
 
 });
 
-app.post('/user/informe', function(req, res, next) {
+app.post('/user/encuesta', function(req, res, next) {
   var accessToken = app.models.accessToken;
   // var Informe = app.models.informe;
   
@@ -301,7 +301,7 @@ app.post('/user/informe', function(req, res, next) {
 });
 
 
-app.post('/user/encuesta', function(req, res, next) {
+app.post('/user/informe', function(req, res, next) {
   var accessToken = app.models.accessToken;
   var User = app.models.user;
   var Encuesta = app.models.encuesta;
@@ -332,16 +332,6 @@ app.post('/user/encuesta', function(req, res, next) {
             }));
           }
           else {
-            // db.encuesta.find().forEach(function(data) {
-            //     db.encuesta.update({
-            //         "_id": data._id
-            //     }, {
-            //         "$set": {
-            //             "anoexp": parseInt(data.anoexp)
-            //         }
-            //     });
-            // })
-
             Encuesta.find({where: {
               and: [
                 {
@@ -372,6 +362,9 @@ app.post('/user/encuesta', function(req, res, next) {
                 var carr_indust = groupArray(encuestas, 'carrera', 'industria')
                 carr_indust = carr_indust[encuesta['carrera']][encuesta['industria']];
 
+                var cargo_indust = groupArray(encuestas, 'cargo', 'industria')
+                cargo_indust = cargo_indust[encuesta['cargo']][encuesta['industria']];
+
                 var institut_carr = groupArray(encuestas, 'carrera', 'institucion');
                 institut_carr = institut_carr[encuesta['carrera']];
 
@@ -381,19 +374,77 @@ app.post('/user/encuesta', function(req, res, next) {
                 var cargo_carr = groupArray(encuestas, 'carrera', 'cargo');
                 cargo_carr = cargo_carr[encuesta['carrera']];
 
-                var genero = groupArray(encuestas, 'genero', 'genero');
-                // genero = genero[encuesta['carrera']];
+                var carrera = encuesta['carrera'];
+                var sueldo = encuesta['sueldo'];
+                var industria = encuesta['industria'];
+                var institucion = encuesta['institucion'];
+                var anos_exp = encuesta['anoexp'];
+                var cargo = encuesta['cargo'];
+
+                carr_indust = getRanking(carr_indust)[encuesta['sueldo']];
+                cargo_indust = getRanking(cargo_indust)[encuesta['sueldo']];
+                indust_carr = getTopFromRanking(encuesta, indust_carr, 'industria', 4);
+                institut_carr = getTopFromRanking(encuesta, institut_carr, 'institucion', 3);
+                cargo_carr = getTopFromRanking(encuesta, cargo_carr, 'cargo', 3);
 
                 return res.send(JSON.stringify({
-                  encuesta: encuesta,
-                  carr_indust: getRanking(carr_indust)[encuesta['sueldo']],
-                  cargo_indust: groupArray(encuestas, 'cargo', 'industria'),
-                  indust_carr: getTopFromRanking(encuesta, indust_carr, 'industria', 4),
-                  institut_carr: getTopFromRanking(encuesta, institut_carr, 'institucion', 3),
-                  cargo_carr: getTopFromRanking(encuesta, cargo_carr, 'cargo', 3),
-                  genero: genero,
-                  encuestas: encuestas
+                  informe: {
+                    carrera: carrera,
+                    sueldo: sueldo,
+                    industria: industria,
+                    institucion: institucion,
+                    anos_exp: anos_exp,
+                    cargo: cargo,
+                    tarjetas: [
+                      {
+                        description: 'Al realizar una comparación de tu sueldo con otros ingenieros que comparten tu Carrera, Industria y Años de Experiencia, tu sueldo es $255.000 inferior que el promedio. En un ranking de 0 a 100 donde 0 es el menor y 100 es el mayor, tú estás en el lugar:',
+                        percent: carr_indust['percent'],
+                        value: sueldo,
+                        iconClass: "fa-graduation-cap"
+                      },
+                      {
+                        description: 'Descripción de comparación',
+                        percent: cargo_indust['percent'],
+                        value: sueldo,
+                        iconClass: "fa-black-tie"
+                      },
+                    ],
+
+                    por_industria: {
+                      titulo: 'Comparación por Industria',
+                      desc: 'Considerando Carrera - Años de Experiencia',
+                      posiciones: indust_carr['items'],
+                      yours: {
+                        nombre: industria,
+                        sueldo: sueldo,
+                        resultado: indust_carr['resultado']
+                      }
+                    },
+
+                    por_institucion: {
+                      titulo: 'Comparación por Institución',
+                      desc: 'Considerando Carrera - Años de Experiencia',
+                      posiciones: institut_carr['items'],
+                      yours: {
+                        nombre: institucion,
+                        sueldo: sueldo,
+                        resultado: institut_carr['resultado']
+                      }
+                    },
+
+                    por_cargo: {
+                      titulo: 'Comparación por Cargo',
+                      desc: 'Considerando Carrera - Años de Experiencia',
+                      posiciones: cargo_carr['items'],
+                      yours: {
+                        nombre: cargo,
+                        sueldo: sueldo,
+                        resultado: cargo_carr['resultado']
+                      }
+                    }
+                  }
                 }));
+
               }
             });
 
@@ -407,6 +458,51 @@ app.post('/user/encuesta', function(req, res, next) {
 
 });
 
+app.post('/user/global', function(req, res, next) {
+  var accessToken = app.models.accessToken;
+  var User = app.models.user;
+  var Encuesta = app.models.encuesta;
+
+  if (!req.body.token) return res.sendStatus(401);
+
+  accessToken.findById(req.body.token, function(err, token){
+    if(err || token === null){
+      return res.send(JSON.stringify({
+        auth: false,
+        message: 'invalid token'
+      }));
+    }
+
+    User.findById(token.userId, function(err, user){
+      if(err || user === null){
+        return res.send(JSON.stringify({
+          auth: false,
+          message: 'could not find user'
+        }));
+      }
+      else{
+        Encuesta.find({where: { sueldo: { neq: null } }}, function(err, encuestas){
+          if(err){
+            return res.send(JSON.stringify({
+              message: "Error al buscar las encuestas"
+            }));
+          }
+          else {
+            return res.send(JSON.stringify({
+              genero: getGlobalStats(encuestas, 'genero'),
+              desempleo: getGlobalStats(encuestas, 'working')
+            }));
+          }
+        });
+      }
+    });
+
+
+  });
+
+});
+
+
 var getRanking = function(array){
   var sueldos, sorted, ranks, n, dict, i;
 
@@ -418,7 +514,10 @@ var getRanking = function(array){
   dict = {};
 
   for(i = 0; i < n; i ++){
-    dict[sorted[i]] = Math.round((ranks[i]/n)*100);
+    dict[sorted[i]] = {
+      percent: Math.round((ranks[i]/n)*100),
+      n: n
+    };
   }
   return dict;
 };
@@ -431,7 +530,7 @@ var getTopFromRanking = function(encuesta, encuestas_agrupadas, filtro, k){
     tmp = encuestas_agrupadas[i].map(function(x){ return x['sueldo']; });
     item = {
       nombre: nombre,
-      sueldo_prom: Math.round(ss.mean(tmp)),
+      sueldo: Math.round(ss.mean(tmp)),
       sueldo_median: Math.round(ss.median(tmp))
     };
 
@@ -443,18 +542,33 @@ var getTopFromRanking = function(encuesta, encuestas_agrupadas, filtro, k){
     }
   }
 
-  sorted = sueldos.sort(function(a, b){ return b['sueldo_prom'] - a['sueldo_prom'] });
+  sorted = sueldos.sort(function(a, b){ return b['sueldo'] - a['sueldo'] });
   
   return {
     items: sorted.slice(0, k),
-    item_cliente: item_cliente
+    item_cliente: item_cliente,
+    resultado: item_cliente['sueldo'] >= sorted[0]['sueldo'] ? true: false
   };
 };
 
 var getGlobalStats = function(array, field){
-  var grouped = groupArray(array, field);
+  var grouped, dict, tmp, i;
+  grouped = groupArray(array, field);
+  dict = {};
 
-  for(i in grouped)
+  for(i in grouped){
+    tmp = grouped[i].map(function(x){ return x['sueldo']; });
+    dict[i] = {
+      nombre: i,
+      n: tmp.length,
+      total: array.length,
+      percent: Math.round((tmp.length/array.length) * 100),
+      sueldo_prom: Math.round(ss.mean(tmp)),
+      sueldo_median: Math.round(ss.median(tmp))
+    };
+  }
+
+  return dict;
 };
 
 app.post('/change-password', function(req, res, next) {

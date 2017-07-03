@@ -26,6 +26,12 @@
           console.log(error);
         });
 
+        informeService.getGlobalStats().then(function successCallback(response){
+          console.log("GLOBAL:", response.data);
+        }, function errorCallback(error){
+          console.log(error);
+        });
+
       };
 
     }
