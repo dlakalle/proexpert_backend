@@ -27,6 +27,8 @@ var passportConfigurator = new PassportConfigurator(app);
  */
 var bodyParser = require('body-parser');
 
+var etiquetas = require('./etiquetas').etiquetas;
+
 /**
  * Flash messages for passport
  *
@@ -374,12 +376,12 @@ app.post('/user/informe', function(req, res, next) {
                 var cargo_carr = groupArray(encuestas, 'carrera', 'cargo');
                 cargo_carr = cargo_carr[encuesta['carrera']];
 
-                var carrera = encuesta['carrera'];
+                var carrera = etiquetas['carrera'][encuesta['carrera']];
                 var sueldo = encuesta['sueldo'];
-                var industria = encuesta['industria'];
-                var institucion = encuesta['institucion'];
+                var industria = etiquetas['industria'][encuesta['industria']];
+                var institucion = etiquetas['institucion'][encuesta['institucion']];
                 var anos_exp = encuesta['anoexp'];
-                var cargo = encuesta['cargo'];
+                var cargo = etiquetas['cargo'][encuesta['cargo']];
 
                 carr_indust = getRanking(carr_indust)[encuesta['sueldo']];
                 cargo_indust = getRanking(cargo_indust)[encuesta['sueldo']];
@@ -389,6 +391,7 @@ app.post('/user/informe', function(req, res, next) {
 
                 return res.send(JSON.stringify({
                   informe: {
+                    etiquetas: etiquetas,
                     carrera: carrera,
                     sueldo: sueldo,
                     industria: industria,
@@ -529,9 +532,11 @@ var getTopFromRanking = function(encuesta, encuestas_agrupadas, filtro, k){
     nombre = encuestas_agrupadas[i][0][filtro];
     tmp = encuestas_agrupadas[i].map(function(x){ return x['sueldo']; });
     item = {
-      nombre: nombre,
+      nombre: etiquetas[filtro][nombre],
+      id: nombre,
       sueldo: Math.round(ss.mean(tmp)),
-      sueldo_median: Math.round(ss.median(tmp))
+      sueldo_median: Math.round(ss.median(tmp)),
+      n: tmp.length
     };
 
     if(encuesta[filtro] !== nombre){
