@@ -306,6 +306,50 @@ app.post('/user/encuesta', function(req, res, next) {
 app.post('/user/informe', function(req, res, next) {
   var accessToken = app.models.accessToken;
   var User = app.models.user;
+  var Informe = app.models.informe;
+
+  if (!req.body.token) return res.sendStatus(401);
+
+  accessToken.findById(req.body.token, function(err, token){
+    if(err || token === null){
+      return res.send(JSON.stringify({
+        auth: false,
+        message: 'invalid token'
+      }));
+    }
+
+    User.findById(token.userId, function(err, user){
+      if(err || user === null){
+        return res.send(JSON.stringify({
+          auth: false,
+          message: 'could not find user'
+        }));
+      }
+      else{
+        Informe.findOne({where: {email: user.email}}, function(err, data){
+          if(err || data === null){
+            return res.send(JSON.stringify({
+              auth: false,
+              message: 'record not found'
+            }));
+          }
+          else {
+
+            return res.send(JSON.stringify({informe: data}));
+          }
+        });
+      }
+    });
+
+
+  });
+
+});
+
+
+app.post('/user/informe_calculado', function(req, res, next) {
+  var accessToken = app.models.accessToken;
+  var User = app.models.user;
   var Encuesta = app.models.encuesta;
 
   if (!req.body.token) return res.sendStatus(401);

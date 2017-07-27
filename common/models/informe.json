@@ -1,6 +1,5 @@
 {
   "name": "informe",
-  "plural": "informes",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -8,13 +7,7 @@
   },
   "properties": {},
   "validations": [],
-  "relations": {
-    "user": {
-      "type": "belongsTo",
-      "model": "user",
-      "foreignKey": "userId"
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": {}
 }
