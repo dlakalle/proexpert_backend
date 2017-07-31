@@ -3,11 +3,11 @@
     <img src="static/png/logo2.png" class="login_logo"></img>
     <form class="login-form" action="/auth/local" method="POST">
       <div id="mensaje" class="login_error" style="">{{ credentialsMessage }}</div>
-      <input type="text" placeholder="email" name="email"/>
-      <input type="password" placeholder="contraseña" name="password"/>
+      <input type="text" placeholder="email" name="email" ng-model="email"/>
+      <input type="password" placeholder="contraseña" name="password" ng-model="password"/>
       <br>
       <br>
-      <button type="submit">Iniciar Sesión</button>
+      <button ng-click="loginSubmit()">Iniciar Sesión</button>
       <p class="message"></p>
       <br>
     </form>

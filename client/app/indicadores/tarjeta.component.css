@@ -1,6 +1,7 @@
 .tarjeta_container {
 	display: flex;
 	margin: 10px 0px 20px 0px;
+  max-width: 343px;
 }
 
 .tarjeta_main {
@@ -44,3 +45,10 @@
 	left: 6px;
   top: 5px;
 }
+
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px){
+  .tarjeta_container {
+    padding: 0px 0 30px 0;
+  }
+}
+

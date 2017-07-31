@@ -7,12 +7,14 @@
       self.$onInit = function(){
         informeService.getInforme().then(
           function successCallback(response){
-          console.log('INFORME:', response.data);
+          // console.log('INFORME:', response.data);
           self.informe = response.data.informe;
           self.tarjetas = response.data.informe.tarjetas;
           self.por_cargo = response.data.informe.por_cargo;
           self.por_institucion = response.data.informe.por_institucion;
           self.por_industria = response.data.informe.por_industria;
+          self.por_ingles = response.data.informe.por_ingles;
+          self.por_genero = response.data.informe.por_genero;
           // self.etiquetas = response.data.etiquetas;
         }, function errorCallback(error){
           console.log(error);

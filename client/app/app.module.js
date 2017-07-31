@@ -3,7 +3,8 @@
     'ngMaterial',
     'ui.router',
     'angular-storage',
-    'googlechart'
+    'googlechart',
+    'ngSanitize'
   ])
   .config(function($mdThemingProvider) {
 

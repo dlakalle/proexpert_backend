@@ -16,12 +16,14 @@
       </div>
     </div>
     
+  <div style="margin-bottom: 20px;">&nbsp;</div>
     <div ng-repeat="tarjeta in $ctrl.tarjetas" flex class="informe_item">
       <tarjeta config="tarjeta"></tarjeta>
     </div>
 
   </div>
 
+  <div style="margin-bottom: 20px;">&nbsp;</div>
   <div class="section_header" id="comparacion">
     <h1>Comparación</h1>
   </div>
@@ -40,55 +42,18 @@
     </div>
 
     <div flex class="informe_item">
-      <div ng-if="$ctrl.por_cargo">
-        <ranking config="$ctrl.por_cargo"></ranking>
+      <div ng-if="$ctrl.por_ingles">
+        <ranking config="$ctrl.por_ingles"></ranking>
       </div>
     </div>
   </div>
-
-  <div class="section_header" id="interpretacion">
-    <h1>Interpretación</h1>
-  </div>
-
+  <div style="margin-bottom: 20px;">&nbsp;</div>
   <div flex layout="row" layout-xs="column" layout-sm="column">
     <div flex class="informe_item">
-
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Card with image</span>
-            <span class="md-subhead">Extra Large</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content layout="row" layout-align="space-between">
-          <div class="md-media-xl card-media"></div>
-        </md-card-content>
-      </md-card>
-
+      <div ng-if="$ctrl.por_genero">
+        <ranking config="$ctrl.por_genero"></ranking>
+      </div>
     </div>
   </div>
-
-  <div class="section_header" id="optimizacion">
-    <h1>Optimización</h1>
-  </div>
-
-  <div flex layout="row" layout-xs="column" layout-sm="column">
-    <div flex class="informe_item">
-
-      <md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Card with image</span>
-            <span class="md-subhead">Extra Large</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content layout="row" layout-align="space-between">
-          <div class="md-media-xl card-media"></div>
-        </md-card-content>
-      </md-card>
-
-    </div>
-  </div>
-
 
 </div>

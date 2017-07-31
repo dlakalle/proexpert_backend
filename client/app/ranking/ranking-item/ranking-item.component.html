@@ -1,5 +1,5 @@
 <div class="ranking_item_container">
-  <div class="ranking_item ranking_item_left">{{ $ctrl.item.nombre }}</div>
+  <div class="ranking_item ranking_item_left" ng-style="{'font-size': $ctrl.getFontSize()}">{{ $ctrl.item.nombre }}</div>
   <div 
     class="ranking_item ranking_item_right"
     ng-class="$ctrl.bgClass">

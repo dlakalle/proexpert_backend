@@ -16,6 +16,13 @@
 
         self.bgClass = 'ranking_item_' + self.color;
       };
+
+      self.getFontSize = function(){
+        if(self.item.nombre.length > 20){
+          return 'x-small';
+        }
+        return undefined;
+      };
     }
   });
 })();

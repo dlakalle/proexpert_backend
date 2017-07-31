@@ -174,135 +174,6 @@ app.post('/auth/valid', function(req, res, next) {
 
 });
 
-app.post('/user/encuesta', function(req, res, next) {
-  var accessToken = app.models.accessToken;
-  // var Informe = app.models.informe;
-  
-  if (!req.body.token) return res.sendStatus(401);
-
-  accessToken.findById(req.body.token, function(err, token){
-    if(err || token === null){
-      return res.send(JSON.stringify({
-        auth: false,
-        message: 'invalid token'
-      }));
-    }
-
-    var carrera = 'Ingeniería Civil en Computación';
-    var sueldo = 1500000;
-    var industria = 'Software y Telecomunicaciones';
-    var institucion = 'Universidad de Chile';
-    var anos_exp = 3;
-    var cargo = 'Consultor Junior';
-
-    return res.send(JSON.stringify({
-      informe: {
-        carrera: carrera,
-        sueldo: sueldo,
-        industria: industria,
-        institucion: institucion,
-        anos_exp: anos_exp,
-        cargo: cargo,
-        tarjetas: [
-          {
-            description: 'Al realizar una comparación de tu sueldo con otros ingenieros que comparten tu Carrera, Industria y Años de Experiencia, tu sueldo es $255.000 inferior que el promedio. En un ranking de 0 a 100 donde 0 es el menor y 100 es el mayor, tú estás en el lugar:',
-            percent: 35,
-            value: sueldo,
-            iconClass: "fa-graduation-cap",
-            passClass: "fa-times"
-          },
-          {
-            description: 'Descripción de comparación',
-            percent: 69,
-            value: sueldo,
-            iconClass: "fa-black-tie",
-            passClass: "fa-check"
-          },
-        ],
-
-        por_industria: {
-          titulo: 'Comparación por Industria',
-          desc: 'Considerando Carrera - Años de Experiencia',
-          posiciones: [
-            {
-              nombre: 'Minería',
-              sueldo: 3000000
-            },
-            {
-              nombre: 'Financiera',
-              sueldo: 1700000
-            },
-            {
-              nombre: 'Energía',
-              sueldo: 2300000
-            },
-            {
-              nombre: 'Informática',
-              sueldo: 1500000
-            }
-          ],
-          yours: {
-            nombre: industria,
-            sueldo: 1350000,
-            resultado: false
-          }
-        },
-
-        por_institucion: {
-          titulo: 'Comparación por Institución',
-          desc: 'Considerando Carrera - Años de Experiencia',
-          posiciones: [
-            {
-              nombre: 'Pontificia Universidad Católica',
-              sueldo: 2777261
-            },
-            {
-              nombre: 'Universidad de Chile',
-              sueldo: 1904419
-            },
-            {
-              nombre: 'Universidad Adolfo Ibañez',
-              sueldo: 1198444
-            }
-          ],
-          yours: {
-            nombre: institucion,
-            sueldo: sueldo,
-            resultado: true
-          }
-        },
-
-        por_cargo: {
-          titulo: 'Comparación por Cargo',
-          desc: 'Considerando Carrera - Años de Experiencia',
-          posiciones: [
-            {
-              nombre: 'Gerente General',
-              sueldo: 2777261
-            },
-            {
-              nombre: 'Jefe',
-              sueldo: 1904419
-            },
-            {
-              nombre: 'Ingeniero Junior',
-              sueldo: 1198444
-            }
-          ],
-          yours: {
-            nombre: cargo,
-            sueldo: sueldo,
-            resultado: false
-          }
-        }
-      }
-    }));
-
-  });
-
-});
-
-
 app.post('/user/informe', function(req, res, next) {
   var accessToken = app.models.accessToken;
   var User = app.models.user;
@@ -347,207 +218,207 @@ app.post('/user/informe', function(req, res, next) {
 });
 
 
-app.post('/user/informe_calculado', function(req, res, next) {
-  var accessToken = app.models.accessToken;
-  var User = app.models.user;
-  var Encuesta = app.models.encuesta;
+// app.post('/user/informe_calculado', function(req, res, next) {
+//   var accessToken = app.models.accessToken;
+//   var User = app.models.user;
+//   var Encuesta = app.models.encuesta;
 
-  if (!req.body.token) return res.sendStatus(401);
+//   if (!req.body.token) return res.sendStatus(401);
 
-  accessToken.findById(req.body.token, function(err, token){
-    if(err || token === null){
-      return res.send(JSON.stringify({
-        auth: false,
-        message: 'invalid token'
-      }));
-    }
+//   accessToken.findById(req.body.token, function(err, token){
+//     if(err || token === null){
+//       return res.send(JSON.stringify({
+//         auth: false,
+//         message: 'invalid token'
+//       }));
+//     }
 
-    User.findById(token.userId, function(err, user){
-      if(err || user === null){
-        return res.send(JSON.stringify({
-          auth: false,
-          message: 'could not find user'
-        }));
-      }
-      else{
-        Encuesta.findOne({where: {email: user.email}}, function(err, encuesta){
-          if(err || encuesta === null){
-            return res.send(JSON.stringify({
-              auth: false,
-              message: 'record not found'
-            }));
-          }
-          else {
-            Encuesta.find({where: {
-              and: [
-                {
-                  or: [
-                    { carrera: encuesta.carrera }, 
-                    { industria: encuesta.industria }, 
-                    { institucion: encuesta.institucion },
-                  ]
-                },
-                { 
-                  anoexp: {
-                    between: [
-                      parseInt(encuesta.anoexp - 1),
-                      parseInt(encuesta.anoexp + 1)
-                    ]
-                  }
-                }
-              ]
-            }}, function(err, encuestas){
-              if(err){
-                return res.send(JSON.stringify({
-                  encuesta: encuesta,
-                  message: "group array ERROR"
-                }));
-              }
-              else {
+//     User.findById(token.userId, function(err, user){
+//       if(err || user === null){
+//         return res.send(JSON.stringify({
+//           auth: false,
+//           message: 'could not find user'
+//         }));
+//       }
+//       else{
+//         Encuesta.findOne({where: {email: user.email}}, function(err, encuesta){
+//           if(err || encuesta === null){
+//             return res.send(JSON.stringify({
+//               auth: false,
+//               message: 'record not found'
+//             }));
+//           }
+//           else {
+//             Encuesta.find({where: {
+//               and: [
+//                 {
+//                   or: [
+//                     { carrera: encuesta.carrera }, 
+//                     { industria: encuesta.industria }, 
+//                     { institucion: encuesta.institucion },
+//                   ]
+//                 },
+//                 { 
+//                   anoexp: {
+//                     between: [
+//                       parseInt(encuesta.anoexp - 1),
+//                       parseInt(encuesta.anoexp + 1)
+//                     ]
+//                   }
+//                 }
+//               ]
+//             }}, function(err, encuestas){
+//               if(err){
+//                 return res.send(JSON.stringify({
+//                   encuesta: encuesta,
+//                   message: "group array ERROR"
+//                 }));
+//               }
+//               else {
 
-                var carr_indust = groupArray(encuestas, 'carrera', 'industria')
-                carr_indust = carr_indust[encuesta['carrera']][encuesta['industria']];
+//                 var carr_indust = groupArray(encuestas, 'carrera', 'industria')
+//                 carr_indust = carr_indust[encuesta['carrera']][encuesta['industria']];
 
-                var cargo_indust = groupArray(encuestas, 'cargo', 'industria')
-                cargo_indust = cargo_indust[encuesta['cargo']][encuesta['industria']];
+//                 var cargo_indust = groupArray(encuestas, 'cargo', 'industria')
+//                 cargo_indust = cargo_indust[encuesta['cargo']][encuesta['industria']];
 
-                var institut_carr = groupArray(encuestas, 'carrera', 'institucion');
-                institut_carr = institut_carr[encuesta['carrera']];
+//                 var institut_carr = groupArray(encuestas, 'carrera', 'institucion');
+//                 institut_carr = institut_carr[encuesta['carrera']];
 
-                var indust_carr = groupArray(encuestas, 'carrera', 'industria');
-                indust_carr = indust_carr[encuesta['carrera']];
+//                 var indust_carr = groupArray(encuestas, 'carrera', 'industria');
+//                 indust_carr = indust_carr[encuesta['carrera']];
 
-                var cargo_carr = groupArray(encuestas, 'carrera', 'cargo');
-                cargo_carr = cargo_carr[encuesta['carrera']];
+//                 var cargo_carr = groupArray(encuestas, 'carrera', 'cargo');
+//                 cargo_carr = cargo_carr[encuesta['carrera']];
 
-                var carrera = etiquetas['carrera'][encuesta['carrera']];
-                var sueldo = encuesta['sueldo'];
-                var industria = etiquetas['industria'][encuesta['industria']];
-                var institucion = etiquetas['institucion'][encuesta['institucion']];
-                var anos_exp = encuesta['anoexp'];
-                var cargo = etiquetas['cargo'][encuesta['cargo']];
+//                 var carrera = etiquetas['carrera'][encuesta['carrera']];
+//                 var sueldo = encuesta['sueldo'];
+//                 var industria = etiquetas['industria'][encuesta['industria']];
+//                 var institucion = etiquetas['institucion'][encuesta['institucion']];
+//                 var anos_exp = encuesta['anoexp'];
+//                 var cargo = etiquetas['cargo'][encuesta['cargo']];
 
-                carr_indust = getRanking(carr_indust)[encuesta['sueldo']];
-                cargo_indust = getRanking(cargo_indust)[encuesta['sueldo']];
-                indust_carr = getTopFromRanking(encuesta, indust_carr, 'industria', 4);
-                institut_carr = getTopFromRanking(encuesta, institut_carr, 'institucion', 3);
-                cargo_carr = getTopFromRanking(encuesta, cargo_carr, 'cargo', 3);
+//                 carr_indust = getRanking(carr_indust)[encuesta['sueldo']];
+//                 cargo_indust = getRanking(cargo_indust)[encuesta['sueldo']];
+//                 indust_carr = getTopFromRanking(encuesta, indust_carr, 'industria', 4);
+//                 institut_carr = getTopFromRanking(encuesta, institut_carr, 'institucion', 3);
+//                 cargo_carr = getTopFromRanking(encuesta, cargo_carr, 'cargo', 3);
 
-                return res.send(JSON.stringify({
-                  informe: {
-                    etiquetas: etiquetas,
-                    carrera: carrera,
-                    sueldo: sueldo,
-                    industria: industria,
-                    institucion: institucion,
-                    anos_exp: anos_exp,
-                    cargo: cargo,
-                    tarjetas: [
-                      {
-                        description: 'Al realizar una comparación de tu sueldo con otros ingenieros que comparten tu Carrera, Industria y Años de Experiencia, tu sueldo es $255.000 inferior que el promedio. En un ranking de 0 a 100 donde 0 es el menor y 100 es el mayor, tú estás en el lugar:',
-                        percent: carr_indust['percent'],
-                        value: sueldo,
-                        iconClass: "fa-graduation-cap"
-                      },
-                      {
-                        description: 'Descripción de comparación',
-                        percent: cargo_indust['percent'],
-                        value: sueldo,
-                        iconClass: "fa-black-tie"
-                      },
-                    ],
+//                 return res.send(JSON.stringify({
+//                   informe: {
+//                     etiquetas: etiquetas,
+//                     carrera: carrera,
+//                     sueldo: sueldo,
+//                     industria: industria,
+//                     institucion: institucion,
+//                     anos_exp: anos_exp,
+//                     cargo: cargo,
+//                     tarjetas: [
+//                       {
+//                         description: 'Al realizar una comparación de tu sueldo con otros ingenieros que comparten tu Carrera, Industria y Años de Experiencia, tu sueldo es $255.000 inferior que el promedio. En un ranking de 0 a 100 donde 0 es el menor y 100 es el mayor, tú estás en el lugar:',
+//                         percent: carr_indust['percent'],
+//                         value: sueldo,
+//                         iconClass: "fa-graduation-cap"
+//                       },
+//                       {
+//                         description: 'Descripción de comparación',
+//                         percent: cargo_indust['percent'],
+//                         value: sueldo,
+//                         iconClass: "fa-black-tie"
+//                       },
+//                     ],
 
-                    por_industria: {
-                      titulo: 'Comparación por Industria',
-                      desc: 'Considerando Carrera - Años de Experiencia',
-                      posiciones: indust_carr['items'],
-                      yours: {
-                        nombre: industria,
-                        sueldo: sueldo,
-                        resultado: indust_carr['resultado']
-                      }
-                    },
+//                     por_industria: {
+//                       titulo: 'Comparación por Industria',
+//                       desc: 'Considerando Carrera - Años de Experiencia',
+//                       posiciones: indust_carr['items'],
+//                       yours: {
+//                         nombre: industria,
+//                         sueldo: sueldo,
+//                         resultado: indust_carr['resultado']
+//                       }
+//                     },
 
-                    por_institucion: {
-                      titulo: 'Comparación por Institución',
-                      desc: 'Considerando Carrera - Años de Experiencia',
-                      posiciones: institut_carr['items'],
-                      yours: {
-                        nombre: institucion,
-                        sueldo: sueldo,
-                        resultado: institut_carr['resultado']
-                      }
-                    },
+//                     por_institucion: {
+//                       titulo: 'Comparación por Institución',
+//                       desc: 'Considerando Carrera - Años de Experiencia',
+//                       posiciones: institut_carr['items'],
+//                       yours: {
+//                         nombre: institucion,
+//                         sueldo: sueldo,
+//                         resultado: institut_carr['resultado']
+//                       }
+//                     },
 
-                    por_cargo: {
-                      titulo: 'Comparación por Cargo',
-                      desc: 'Considerando Carrera - Años de Experiencia',
-                      posiciones: cargo_carr['items'],
-                      yours: {
-                        nombre: cargo,
-                        sueldo: sueldo,
-                        resultado: cargo_carr['resultado']
-                      }
-                    }
-                  }
-                }));
+//                     por_cargo: {
+//                       titulo: 'Comparación por Cargo',
+//                       desc: 'Considerando Carrera - Años de Experiencia',
+//                       posiciones: cargo_carr['items'],
+//                       yours: {
+//                         nombre: cargo,
+//                         sueldo: sueldo,
+//                         resultado: cargo_carr['resultado']
+//                       }
+//                     }
+//                   }
+//                 }));
 
-              }
-            });
+//               }
+//             });
 
-          }
-        });
-      }
-    });
-
-
-  });
-
-});
-
-app.post('/user/global', function(req, res, next) {
-  var accessToken = app.models.accessToken;
-  var User = app.models.user;
-  var Encuesta = app.models.encuesta;
-
-  if (!req.body.token) return res.sendStatus(401);
-
-  accessToken.findById(req.body.token, function(err, token){
-    if(err || token === null){
-      return res.send(JSON.stringify({
-        auth: false,
-        message: 'invalid token'
-      }));
-    }
-
-    User.findById(token.userId, function(err, user){
-      if(err || user === null){
-        return res.send(JSON.stringify({
-          auth: false,
-          message: 'could not find user'
-        }));
-      }
-      else{
-        Encuesta.find({where: { sueldo: { neq: null } }}, function(err, encuestas){
-          if(err){
-            return res.send(JSON.stringify({
-              message: "Error al buscar las encuestas"
-            }));
-          }
-          else {
-            return res.send(JSON.stringify({
-              genero: getGlobalStats(encuestas, 'genero'),
-              desempleo: getGlobalStats(encuestas, 'working')
-            }));
-          }
-        });
-      }
-    });
+//           }
+//         });
+//       }
+//     });
 
 
-  });
+//   });
 
-});
+// });
+
+// app.post('/user/global', function(req, res, next) {
+//   var accessToken = app.models.accessToken;
+//   var User = app.models.user;
+//   var Encuesta = app.models.encuesta;
+
+//   if (!req.body.token) return res.sendStatus(401);
+
+//   accessToken.findById(req.body.token, function(err, token){
+//     if(err || token === null){
+//       return res.send(JSON.stringify({
+//         auth: false,
+//         message: 'invalid token'
+//       }));
+//     }
+
+//     User.findById(token.userId, function(err, user){
+//       if(err || user === null){
+//         return res.send(JSON.stringify({
+//           auth: false,
+//           message: 'could not find user'
+//         }));
+//       }
+//       else{
+//         Encuesta.find({where: { sueldo: { neq: null } }}, function(err, encuestas){
+//           if(err){
+//             return res.send(JSON.stringify({
+//               message: "Error al buscar las encuestas"
+//             }));
+//           }
+//           else {
+//             return res.send(JSON.stringify({
+//               genero: getGlobalStats(encuestas, 'genero'),
+//               desempleo: getGlobalStats(encuestas, 'working')
+//             }));
+//           }
+//         });
+//       }
+//     });
+
+
+//   });
+
+// });
 
 
 var getRanking = function(array){

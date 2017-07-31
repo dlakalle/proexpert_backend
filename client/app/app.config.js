@@ -16,7 +16,7 @@
         $stateProvider.state('login', {
           url: '/?credentials',
           templateUrl: 'login.html',
-          controller: function($scope, $stateParams){
+          controller: function($scope, $stateParams, $sanitize){
             var auth_message = $stateParams.credentials;
             var message;
             switch(auth_message){
@@ -31,6 +31,14 @@
             }
 
             $scope.credentialsMessage = message;
+
+            $scope.email = '';
+            $scope.password = '';
+
+            $scope.loginSubmit = function(){
+              $scope.email = $sanitize($scope.email).toLowerCase();
+              $scope.password = $sanitize($scope.password);
+            };
           }
         });
 
