@@ -24,7 +24,6 @@
         });
       }
       else{
-        console.log('informe: no token or user')
         return undefined;
       }
 

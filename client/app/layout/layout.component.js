@@ -11,7 +11,8 @@
         $location,
         $anchorScroll,
         authClientService,
-        $mdDialog
+        $mdDialog,
+        $timeout
       ){
 
       var self = this;
@@ -20,12 +21,26 @@
 
       $scope.$watch(function() { return $mdMedia('(min-width: 900px)'); }, function(mediaTrue) {
         self.bigScreen = mediaTrue;
+        self.isScrollable();
       });
 
       self.openLeftMenu = function() {
         $mdSidenav('left-sidenav').toggle();
+        self.isScrollable();
       };
 
+      self.isScrollable = function(){
+        self.sideNavIsOpen = $mdSidenav('left-sidenav').isOpen();
+
+        if(!self.bigScreen && self.sideNavIsOpen){
+          angular.element(document).find('body').css('overflow', 'hidden');
+          angular.element(document).find('body').css('height', '100%');
+          angular.element(document).find('body').css('position', 'fixed');
+        }
+        else{
+          angular.element(document).find('body').removeAttr('style');
+        }
+      };
 
 
       self.$onInit = function(){
@@ -41,6 +56,13 @@
         self.buttonCallback = function(){
           authClientService.logout();
         };
+
+        $timeout(function () {
+          $mdSidenav('left-sidenav').onClose(function(){
+            angular.element(document).find('body').removeAttr('style');
+          });
+        });
+
       };
 
 
@@ -51,6 +73,8 @@
 
             $scope.buttonCallback = self.buttonCallback;
             $scope.buttonText = self.buttonText;
+            $scope.goHome = self.goHome;
+            $scope.goEstudio = self.goEstudio;
 
             $scope.changePassword = self.changePassword;
 
@@ -60,18 +84,34 @@
         });
       };
 
-      self.sideNavClick = function(logText){
-        console.log('app.' + logText);
-        $state.go('app.' + logText);
+      self.goHome = function(){
+        $state.go('app.home'); 
+      };
 
-        $mdSidenav('left-sidenav').close();
+      self.goEstudio = function(){
+        $state.go('app.estudio'); 
+      };
+
+      self.sideNavClick = function(logText){
+        // console.log('app.' + logText);
+        if(logText === 'descarga'){
+          window.print();
+        }
+        else{
+          $state.go('app.' + logText);
+          $mdSidenav('left-sidenav').close();
+        }
       };
 
       self.sideNavClickScroll = function(logText){
-        console.log('app.' + logText);
+        // console.log('app.' + logText);
         $location.hash(logText);
         $mdSidenav('left-sidenav').close();
         $anchorScroll();
+      };
+
+      self.comingSoon = function($event, feature){
+        self.showAlert($event, '', 'Esta funcionalidad no se encuentra disponible aun. Ingresa a la plataforma en las próximas semanas para acceder a este y otros contenidos.');
       };
 
       self.changePassword = function($event){
@@ -90,11 +130,9 @@
                 confirmation: $scope.confirmation,
                 oldPassword: $scope.oldPassword
               }).then(function successCallback(response){
-                console.log(response);
                 $mdDialog.hide();
                 self.showAlert(null, 'Cambio Contraseña', 'Operación Exitosa.');
               }, function errorCallback(error){
-                console.log('Error:', error);
                 self.showAlert(null, 'Cambio Contraseña', 'Hubo un error en la operación, intente nuevamente.');
               });
             }

@@ -1,4 +1,4 @@
-<div layout="column">
+<div id="informe_sueldos_content" layout="column">
   <div class="section_header">
     <h1>Tu posición</h1>
   </div>
@@ -8,6 +8,7 @@
         <h2>{{ $ctrl.informe.carrera }}</h2>
       </div>
       <div class="subsection_description">
+        <p>E-mail: {{ $ctrl.informe.email }}</p>
         <p>Sueldo total: {{ $ctrl.informe.sueldo | currency:"$":0 | comma2dot }}</p>
         <p>Cargo: {{ $ctrl.informe.cargo }}</p>
         <p>Institución: {{ $ctrl.informe.institucion }}</p>

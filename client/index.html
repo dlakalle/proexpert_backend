@@ -24,6 +24,20 @@
 
     <link rel="stylesheet" href="app/ranking/ranking.component.css">
 
+    <!-- para imprimir con la funcionalidad del browser -->
+    <style type="text/css">
+        @media print
+        {
+            body * { visibility: hidden; }
+            #informe_sueldos_content * {
+                visibility: visible;
+            }
+            .ranking_container {
+                max-width: 343px;
+            }
+        }
+    </style>
+
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -44,6 +58,10 @@
     <script src="app/app.config.js"></script>
     
     <script src="app/auth.service.js"></script>
+    
+    <script src="app/home/home.component.js"></script>
+    <script src="app/estudio/estudio.component.js"></script>
+
     <script src="app/informe/informe.service.js"></script>
 
     <script src="app/layout/layout.component.js"></script>

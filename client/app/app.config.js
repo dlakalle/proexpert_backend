@@ -62,6 +62,16 @@
           template: '<div>Mi Cuenta</div>'
         });
 
+        $stateProvider.state('app.estudio', {
+          url: '/estudio/',
+          template: '<estudio></estudio>'
+        });
+
+        $stateProvider.state('app.home', {
+          url: '/home/',
+          template: '<home></home>'
+        });
+
       }
     ]).run(function ($rootScope, $state, authClientService, $mdDialog) {
       $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){

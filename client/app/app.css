@@ -37,3 +37,12 @@
 .proexp-sidenav .md-button{
   /*width: 100%;*/
 }
+
+.noScroll {
+  overflow: hidden;
+}
+
+.estudio_texto {
+  background-color: #edecec;
+  /*line-height: 1.5 !important;*/
+}
