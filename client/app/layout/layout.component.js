@@ -19,7 +19,7 @@
 
       self.buttonText = '';
 
-      $scope.$watch(function() { return $mdMedia('(min-width: 900px)'); }, function(mediaTrue) {
+      $scope.$watch(function() { return $mdMedia('(min-width: 1300px)'); }, function(mediaTrue) {
         self.bigScreen = mediaTrue;
         self.isScrollable();
       });
@@ -111,7 +111,7 @@
       };
 
       self.comingSoon = function($event, feature){
-        self.showAlert($event, '', 'Esta funcionalidad no se encuentra disponible aun. Ingresa a la plataforma en las próximas semanas para acceder a este y otros contenidos.');
+        self.showAlert($event, '', 'Esta funcionalidad no se encuentra disponible aún. Pronto podrás acceder a este y a otros contenidos.');
       };
 
       self.changePassword = function($event){
