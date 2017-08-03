@@ -12,7 +12,8 @@
         $anchorScroll,
         authClientService,
         $mdDialog,
-        $timeout
+        $timeout,
+        $window
       ){
 
       var self = this;
@@ -40,6 +41,10 @@
         else{
           angular.element(document).find('body').removeAttr('style');
         }
+      };
+
+      self.redirectToContacto = function(){
+        $window.open('http://conexioningenieros.com/contact/', '_blank');
       };
 
 
@@ -75,7 +80,7 @@
             $scope.buttonText = self.buttonText;
             $scope.goHome = self.goHome;
             $scope.goEstudio = self.goEstudio;
-
+            $scope.redirectToContacto = self.redirectToContacto;
             $scope.changePassword = self.changePassword;
 
           }

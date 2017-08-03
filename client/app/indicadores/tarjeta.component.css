@@ -38,6 +38,12 @@
   line-height: 36px;
   color: #fff;
 
+  cursor: pointer;
+
+}
+
+.tarjeta_icon_circle:focus {
+  outline: 0;
 }
 
 .tarjeta_icon_circle md-icon {

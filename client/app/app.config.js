@@ -67,10 +67,10 @@
           template: '<estudio></estudio>'
         });
 
-        $stateProvider.state('app.home', {
-          url: '/home/',
-          template: '<home></home>'
-        });
+        // $stateProvider.state('app.home', {
+        //   url: '/home/',
+        //   template: '<home></home>'
+        // });
 
       }
     ]).run(function ($rootScope, $state, authClientService, $mdDialog) {

@@ -13,7 +13,7 @@
         <div ng-if="$ctrl.bigScreen">
             <md-button ng-click="$ctrl.goHome()">Home</md-button>
             <md-button ng-click="$ctrl.goEstudio()">Estudio de sueldos</md-button>
-            <md-button>Contacto</md-button>
+            <md-button ng-click="$ctrl.redirectToContacto()">Contacto</md-button>
             <md-button ng-click="$ctrl.changePassword($event)">Cambiar Contraseña</md-button>
             <md-button ng-click="$ctrl.buttonCallback()">{{ $ctrl.buttonText }}</md-button>
         </div>

@@ -7,6 +7,14 @@
     },
     controller: function IndicadorController(){
       var self = this;
+      self.$onInit = function(){
+        if(self.iconClass === 'fa-graduation-cap'){
+          self.field = 'Carrera';
+        }
+        else{
+          self.field = 'Cargo';
+        }
+      }
     }
   });
 })();
