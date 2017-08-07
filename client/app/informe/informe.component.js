@@ -15,6 +15,10 @@
           self.por_industria = response.data.informe.por_industria;
           self.por_ingles = response.data.informe.por_ingles;
           self.por_genero = response.data.informe.por_genero;
+
+          if(self.informe.carrera === ''){
+            self.informe.carrera = self.informe.carrera_homologada;
+          }
           // self.etiquetas = response.data.etiquetas;
         }, function errorCallback(error){
           console.log(error);

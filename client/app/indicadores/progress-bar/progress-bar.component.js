@@ -10,7 +10,10 @@
       self.color = "#fff";
 
       self.$onInit = function(){
-      	if(self.value <= 33){
+        if(self.value === '¿?'){
+          self.color = "white";
+        }
+      	else if(self.value <= 33){
       		self.color = "#EF5350";
       	}
       	else if(self.value <= 66){
