@@ -7,7 +7,7 @@
 }
 
 .pb_value {
-	font-size: xx-large;
+	font-size: x-large;
 	margin-bottom: 5px;
 }
 
@@ -23,8 +23,9 @@
 	height: 12px;
 }
 
-@media 
-
-.pb_value {
-	font-size: xx-large;
+@media screen and (min-width: 380px) {
+	.pb_value {
+		font-size: xx-large;
+	}
 }
+

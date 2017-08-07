@@ -153,8 +153,7 @@ app.post('/auth/valid', function(req, res, next) {
         }
         else{
           u = user;
-          console.log(user.id.toString(), typeof(user.id.toString()));
-          console.log(token.userId.toString(), typeof(token.userId.toString()));
+          console.log((new Date) + ' --> LOGIN ' + '--> user: ', user.email, ' token:', token.id);
           if(user.id.toString() !== token.userId.toString()){
             return res.send(JSON.stringify({
               auth: false,
@@ -205,7 +204,7 @@ app.post('/user/informe', function(req, res, next) {
             }));
           }
           else {
-
+            console.log((new Date) + ' --> GET INFORME ' + '--> user: ', user.email, ' token:', token.id);
             return res.send(JSON.stringify({informe: data}));
           }
         });
@@ -519,7 +518,8 @@ app.post('/change-password', function(req, res, next) {
           } else {
             user.updateAttribute('password', User.hashPassword(req.body.password), function(err, user) {
               if (err) return res.sendStatus(404);
-              console.log('> password change request processed successfully');
+              console.log((new Date) + ' --> ATTEMPTING PASSWORD CHANGE ' + '--> user: ', user.email, ' token:', token.id);
+              console.log('PASSWORD CHANGE SUCCESSFUL');
               res.status(200).json({msg: 'password change request processed successfully'});
             });
           }

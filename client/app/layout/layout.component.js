@@ -136,7 +136,10 @@
                 oldPassword: $scope.oldPassword
               }).then(function successCallback(response){
                 $mdDialog.hide();
-                self.showAlert(null, 'Cambio Contraseña', 'Operación Exitosa.');
+                self.showAlert(null, 'Cambio Contraseña', 'Operación Exitosa. Debes iniciar sesión nuevamente.');
+                $timeout(function(){
+                  $window.location.reload();
+                }, 1500);
               }, function errorCallback(error){
                 self.showAlert(null, 'Cambio Contraseña', 'Hubo un error en la operación, intente nuevamente.');
               });
