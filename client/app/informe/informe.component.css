@@ -8,9 +8,10 @@
   margin-top: 0px;
 }
 
-.description {
+/*.description {
+  -webkit-flex: 2;
   flex: 2;
-}
+}*/
 
 @media screen and (min-width: 380px) {
     .informe_item {

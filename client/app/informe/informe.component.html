@@ -5,8 +5,8 @@
       En este lugar encontrarás tu posición respecto de colegas que comparten tu carrera y nivel de cargo, y que además tienen años de experiencia muy similares al tuyo. El objetivo es que puedas formarte una idea de cómo está tu sueldo respecto del mercado, para que tomes las mejores decisiones futuras.
     </p>
   </div>
-  <div flex layout="row" layout-xs="column" layout-sm="column">
-    <div flex class="informe_item">
+  <div  layout="row" layout-xs="column" layout-sm="column">
+    <div  class="informe_item">
       <div class="subsection_header">
         <h2>{{ $ctrl.informe.carrera }}</h2>
       </div>
@@ -22,7 +22,7 @@
     </div>
     
   <div style="margin-bottom: 20px;">&nbsp;</div>
-    <div ng-repeat="tarjeta in $ctrl.tarjetas" flex class="informe_item">
+    <div ng-repeat="tarjeta in $ctrl.tarjetas"  class="informe_item">
       <tarjeta config="tarjeta"></tarjeta>
     </div>
 
@@ -36,14 +36,14 @@
     </p>
   </div>
   <div style="margin-bottom: 20px;">&nbsp;</div>
-  <div flex layout="row" layout-xs="column" layout-sm="column">
-    <div flex class="informe_item description">
+  <div  layout="row" layout-xs="column" layout-sm="column">
+    <div  class="informe_item description">
       <h2>Comparación por industria</h2>
       <p>
         Se agruparon aquellas industrias que mejor sueldo entregan a los ingenieros, las consideradas de rango medio y las que peor pagan; considerando el mismo nivel de cargo tuyo -independiente de la experiencia- en el siguiente gráfico puedes ver la posición de tu industria respecto de las otras.
       </p>
     </div>
-    <div flex class="informe_item">
+    <div  class="informe_item">
       <div ng-if="$ctrl.por_industria">
         <barras style="width:100%;" config="$ctrl.por_industria"></barras>
       </div>
@@ -51,14 +51,14 @@
   </div>
 
   <div style="margin-bottom: 20px;">&nbsp;</div>
-  <div flex layout="row" layout-xs="column" layout-sm="column">
-    <div flex class="informe_item description">
+  <div  layout="row" layout-xs="column" layout-sm="column">
+    <div  class="informe_item description">
       <h2>Comparación según nivel de inglés</h2>
       <p>
         Quienes tienen el mismo nivel de cargo tuyo perciben sueldos promedios distintos de acuerdo al nivel de inglés que tienen. En este gráfico puedes ver las diferencias entre aquellos que tienen tu mismo nivel de cargo.
       </p>
     </div>
-    <div flex class="informe_item">
+    <div  class="informe_item">
       <div ng-if="$ctrl.por_ingles">
         <ranking config="$ctrl.por_ingles"></ranking>
       </div>
@@ -67,14 +67,14 @@
 
 
   <div style="margin-bottom: 20px;">&nbsp;</div>
-  <div flex layout="row" layout-xs="column" layout-sm="column">
-    <div flex class="informe_item description">
+  <div  layout="row" layout-xs="column" layout-sm="column">
+    <div  class="informe_item description">
       <h2>Comparación de género</h2>
       <p>
         Una de las conclusiones más relevantes que hemos obtenido desde el comienzo del estudio, hace 5 años, es que hay diferencias de sueldo por género; la mayoría de los casos a favor de los hombres. Aquí puedes ver esta diferencia para quienes tienen tu mismo nivel de cargo y mismo rango de experiencia laboral.
       </p>
     </div>
-    <div flex class="informe_item">
+    <div  class="informe_item">
       <div ng-if="$ctrl.por_genero">
         <ranking config="$ctrl.por_genero"></ranking>
       </div>
