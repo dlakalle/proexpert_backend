@@ -1,5 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+.section_header p{
+  margin: 20px 10px;
+}
+
+.informe_item h2 {
+  margin-top: 0px;
+}
+
+.description {
+  flex: 2;
+}
+
 @media screen and (min-width: 380px) {
     .informe_item {
       margin: 0 10px;
@@ -7,16 +19,19 @@
 }
 
 @media screen and (min-width: 1300px) {
-    .section_header h1{
+/*    .section_header h1{
       text-align: right;
-    }
+    }*/
+  .informe_item.description p{
+    padding-right: 80px;
+  }
 }
 
 .section_header h1{
   font-size: xx-large;
   font-weight: inherit;
   color: #675e59;
-  margin: 10px 10px 10px 5px;
+  margin: 10px 10px 10px 7px;
   /*margin-bottom: 10px;*/
   /*margin-right: 10px;*/
 }
@@ -24,6 +39,7 @@
 .subsection_header h2{
   font-size: x-large;
   /*color: #675e59;*/
+  padding-top: 10px;
   margin: 0px 10px 15px 0px;
 }
 

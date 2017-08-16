@@ -78,7 +78,7 @@
 
             $scope.buttonCallback = self.buttonCallback;
             $scope.buttonText = self.buttonText;
-            $scope.goHome = self.goHome;
+            $scope.goHome = self.goInforme;
             $scope.goEstudio = self.goEstudio;
             $scope.redirectToContacto = self.redirectToContacto;
             $scope.changePassword = self.changePassword;
@@ -106,6 +106,10 @@
           $state.go('app.' + logText);
           $mdSidenav('left-sidenav').close();
         }
+      };
+
+      self.goInforme = function(){
+        $state.go('app.informe');
       };
 
       self.sideNavClickScroll = function(logText){
