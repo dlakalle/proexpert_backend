@@ -67,4 +67,8 @@
   .informe_item {
     margin: 0 10px;
   }
+
+  .tarjeta_container {
+    min-width: 336px;
+  }
 }
